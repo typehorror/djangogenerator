@@ -4,7 +4,7 @@ from model.utils import slugify
 FIELD_CHOICES = (
     ('charfield','CharField'),
     ('foreignkeyfield','ForeignKeyField'),
-    ('manytomanyfiekd','ManyToManyField'),
+    ('manytomanyfield','ManyToManyField'),
 )
 
 class NewFieldForm(forms.Form):
