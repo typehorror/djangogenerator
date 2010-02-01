@@ -1,0 +1,41 @@
+{% load model_tags %}
+<div class="model" id="model_{{ model.id }}">
+
+    <div id="new_field_{{ model.id }}" class="new_field">
+    <form id="new_field_{{ model.id }}_form" action="{% url new_field_form model.id %}" method="post">
+    	{% new_field_form model %}
+	</form>
+    </div>
+
+    <div class="model_form">
+    <form id="model_{{ model.id }}_form" action="{% url model_form model.id %}" method="post">
+    {% model_form model %}
+    </form>
+    <div id="model_{{ model.id }}_models">
+        <ul class="models">
+        {% for model in model.fields.all %}
+            <li>
+            {{ field
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div id="model_{{ model.id }}_fields">
+        <ul class="fields" id="model_{{ model.id }}_fields_list">
+        {% for field in models.fields.all %}
+            <li>
+                {{ model_fields.object }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#model_{{ model.id }}_form").submit(function(){
+        $("#model_{{ model.id }}_loading").css({display:"inline-block"});
+        $(this).ajaxSubmit({target: '#model_{{ model.id }}_form'});
+        return false;
+    });
+</script>
+

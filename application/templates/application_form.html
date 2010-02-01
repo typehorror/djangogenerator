@@ -1,0 +1,34 @@
+{% for field in application_form %}
+<p>
+    {{ field.label_tag }} {{ field }} 
+    {% if field.errors %}
+        <span class="errors">
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
+        </span>
+    {% endif %}
+    {% if forloop.first %}
+        <span class="loading" id="application_{{ application.id }}_loading"> &nbsp; </span>
+        <input type="submit" value="save application" />
+        <input type="button" class="delete" value="delete application" id="application_{{ application.id }}_delete" />
+    {% if saved %}
+        <span id="application_{{ application.id }}_saved" class="saved">Saved</span>
+        <script type="text/javascript">
+            $('#application_{{ application.id }}_saved').fadeIn('fast');
+            setTimeout("$('#application_{{ application.id }}_saved').fadeOut(2000);",1000);
+        </script>
+    {% endif %}
+    {% endif %}
+</p>
+{% endfor %}
+<script type="text/javascript">
+    $("#application_{{ application.id }}_delete").click(function(){
+        var del_object = confirm('Are you sure you want to delete "{{ application.name }}" ?'); 
+        if ( del_object == true ){
+            $.post( "{% url application_del application.id %}", function(data){ 
+                $("#application_{{ application.id }}").slideToggle(); 
+                });
+            }
+        });
+</script>

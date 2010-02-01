@@ -6,3 +6,4 @@ src/*
 *.swp
 common
 djangodblog
+backup*

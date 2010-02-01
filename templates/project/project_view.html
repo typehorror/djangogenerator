@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load application_tags %}
+
+{% block content %}
+    <div id="new_application_{{ project.id }}" class="new_application">
+    <form id="new_application_{{ project.id }}_form" action="{% url new_application_form project.id %}" method="post">
+    	{% new_application_form project %}
+	</form>
+    </div>
+    <div id="project_{{ project.id }}" class="project_form">
+    <form action="" method="post">
+        <input type="submit" value="Save project" />
+        {{ project_form.as_p }}
+    </form>
+    </div>
+    <div class="applications" id="project_{{ project.id }}_applications">
+    <ul id="project_{{ project.id }}_applications_list">
+        {% for application in project.applications.all %}
+            <li>
+            {% application_view application %}
+            </li>
+        {% endfor %}
+    </ul>
+
+<script type="text/javascript">
+    $("#new_application_{{ project.id }}_form").submit(function(){
+        $("#new_application_{{ project.id }}_loading").css({display:'inline-block'});
+        $(this).ajaxSubmit({target: '#new_application_{{ project.id }}_form'});
+        return false;
+    });
+</script>
+
+{% endblock content %}
+

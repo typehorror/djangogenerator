@@ -1,0 +1,36 @@
+{% load model_tags %}
+{% load application_tags %}
+<div class="application" id="application_{{ application.id }}">
+    <div id="new_model_{{ application.id }}" class="new_model">
+    <form id="new_model_{{ application.id }}_form" action="{% url new_model_form application.id %}" method="post">
+    	{% new_model_form application %}
+	</form>
+    </div>
+    <div id="application_{{ application.id }}" class="application_form">
+    <form id="application_{{ application.id }}_form" action="{% url application_form application.id %}" method="post">
+    {% application_form application %}
+    </form>
+    </div>
+    <div id="application_{{ application.id }}_models">
+        <ul class="models" id="application_{{ application.id }}_models_list">
+        {% for model in application.models.all %}
+            <li>
+                {% model_view model %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#application_{{ application.id }}_form").submit(function(){
+        $("#application_{{ application.id }}_loading").css({display:'inline-block'});
+        $(this).ajaxSubmit({target: '#application_{{ application.id }}_form'});
+        return false;
+    });
+    $("#new_model_{{ application.id }}_form").submit(function(){
+        $("#new_model_{{ application.id }}_loading").css({display:'inline-block'});
+        $(this).ajaxSubmit({target: '#new_model_{{ application.id }}_form'});
+        return false;
+    });
+</script>

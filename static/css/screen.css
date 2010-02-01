@@ -1,0 +1,115 @@
+body{
+    font-family: "Lucida Grande",Verdana,Arial,sans-serif;
+    font-size:.8em;
+}
+
+form textarea{
+    height: 3em;
+}
+
+form p{
+    display: block;
+    clear: both;
+}
+
+form label{
+    float: left;
+    width: 12em; 
+    padding: 2px;
+    color: #555;
+    font-weight: bold;
+}
+
+form input, form textarea{
+    border: 1px solid gray;
+    padding: 2px;
+}
+
+li{
+    list-style-type: none;
+}
+
+.new_model{
+    border: 1px solid #009E77;
+    background: #00EBB0;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+    display: block;
+    float: right;
+}
+
+.new_field{
+    border: 1px solid #009E77;
+    background: #00EBB0;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+    display: block;
+    position: absolute;
+    right: 25px;
+    margin-top: 40px;
+}
+
+.new_application{
+    border: 1px solid #009E77;
+    background: #00EBB0;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+.model{
+    border: 1px solid #ADC8E1;
+    background: #D1E0EF;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.application{
+    border: 1px solid lightgray;
+    background: #eee;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+
+form input[type=submit], form input[type=button]{
+    float: right;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    margin-left: 5px;
+}
+
+form input.delete{
+    background-color: #ECC6C6;
+    border-color: #C65353;
+}
+
+form span.saved{
+    color: green;
+    font-weight: bold;
+    margin-left: 5px;
+    display: none;
+}
+
+form span.errors{
+    color: red;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+form span.loading{
+    background: url("../img/ajax_loader.gif") no-repeat;
+    width: 16px;
+    height: 16px;
+    margin: 0 10px 0 3px;
+    display: none;
+}
+

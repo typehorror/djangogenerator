@@ -1,0 +1,26 @@
+{% for field in new_model_form %}
+<p>
+    {{ field.label_tag }} {{ field }} 
+    {% if field.errors %}
+        <span class="errors">
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
+        </span>
+    {% endif %}
+    {% if forloop.first %}
+        <span class="loading" id="new_model_{{ application.id }}_loading"> &nbsp; </span>
+        <input type="submit" value="+ add model" />
+    {% if created %}
+        <span id="model_{{ model.id }}_created" class="saved">Created</span>
+        <script type="text/javascript">
+            $('#model_{{ model.id }}_created').fadeIn('fast');
+			$.get("{% url model_view model.id %}",function(data){
+				$("#application_{{ model.application.id  }}_models_list").append("<li>"+data+"</li>");
+			});
+            setTimeout("$('#model_{{ model.id }}_created').fadeOut(2000);",1000);
+        </script>
+    {% endif %}
+    {% endif %}
+</p>
+{% endfor %}
