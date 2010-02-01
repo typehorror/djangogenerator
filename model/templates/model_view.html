@@ -1,9 +1,10 @@
 {% load model_tags %}
+{% load field_tags %}
 <div class="model" id="model_{{ model.id }}">
 
-    <div id="new_field_{{ model.id }}" class="new_field">
-    <form id="new_field_{{ model.id }}_form" action="{% url new_field_form model.id %}" method="post">
-    	{% new_field_form model %}
+    <div id="new_model_field_{{ model.id }}" class="new_model_field">
+    <form id="new_model_field_{{ model.id }}_form" action="{% url new_model_field_form model.id %}" method="post">
+    	{% new_model_field_form model %}
 	</form>
     </div>
 

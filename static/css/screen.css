@@ -10,6 +10,7 @@ form textarea{
 form p{
     display: block;
     clear: both;
+    margin: 3px;
 }
 
 form label{
@@ -20,7 +21,11 @@ form label{
     font-weight: bold;
 }
 
-form input, form textarea{
+form input:focus, form textarea:focus, form select:focus{
+    background-color: #FFFFCC;
+}
+
+form input, form textarea, form select{
     border: 1px solid gray;
     padding: 2px;
 }
@@ -40,7 +45,7 @@ li{
     float: right;
 }
 
-.new_field{
+.new_model_field{
     border: 1px solid #009E77;
     background: #00EBB0;
     -moz-border-radius: 10px;
@@ -112,4 +117,3 @@ form span.loading{
     margin: 0 10px 0 3px;
     display: none;
 }
-

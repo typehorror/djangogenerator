@@ -7,7 +7,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
     (r'^field/', include('field.urls')),
     (r'^model/', include('model.urls')),
     (r'^application/', include('application.urls')),

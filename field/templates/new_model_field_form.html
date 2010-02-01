@@ -1,11 +1,11 @@
 <p>
-{{ new_field_form.name.label_tag }}
-{{ new_field_form.name }} 
-{{ new_field_form.type }}
+{{ new_model_field_form.name.label_tag }}
+{{ new_model_field_form.name }} 
+{{ new_model_field_form.type }}
 
-{% if new_field_form.name.errors %}
+{% if new_model_field_form.name.errors %}
     <span class="errors">
-    {% for error in new_field_form.name.errors %}
+    {% for error in new_model_field_form.name.errors %}
     {{ error }}
     {% endfor %}
     </span>

@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
 
-from utils import slugify
+from model.utils import slugify
 
 class ModelField(models.Model):
     model = models.ForeignKey('model.Model', related_name="model_fields")

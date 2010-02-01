@@ -49,5 +49,5 @@ def new_model_field_form(request, model_id):
             context['field'] = 'test'
     else:
        form = NewFieldForm(request.POST, prefiex="new_field_%d" % model_id)
-    context.update({'new_field_form': form, 'model': model})
-    return render_response(request, 'new_field_form.html', context)
+    context.update({'new_model_field_form': form, 'model': model})
+    return render_response(request, 'new_model_field_form.html', context)
