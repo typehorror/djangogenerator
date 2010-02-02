@@ -1,0 +1,39 @@
+<div class="field" id="field_{{ model_field.id }}">
+<div class="field_type" >{{ field_type}}</div>
+<form id="field_form_{{ model_field.id }}" action="{% url model_field_form field_type model_field.id %}" method="post">
+{% for field in field_form %}
+<p>
+    {{ field.label_tag }} {{ field }} 
+    {% if field.errors %}
+        <span class="errors">
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
+        </span>
+    {% endif %}
+    {% if forloop.first %}
+        <span class="loading" id="field_{{ model_field.id }}_loading"> &nbsp; </span>
+        <input type="submit" value="save field" />
+        <input type="button" class="delete" value="delete" id="field_{{ model_field.id }}_delete"/>
+    {% endif %}
+</p>
+{% endfor %}
+</form>
+</div>
+
+<script type="text/javascript">
+    $("#field_{{ model_field.id }}_delete").click(function(){
+        var del_object = confirm('Are you sure you want to delete the field "{{ model_field.object.name }}" ?'); 
+        if ( del_object == true ){
+            $.post( "{% url model_field_del model_field.id %}", function(data){ 
+                $("#field_{{ model_field.id }}").slideToggle(); 
+                });
+            }
+        });
+
+    $("#field_form_{{ model_field.id }}").submit(function(){
+        $("#field_{{ model_field.id }}_loading").css({display:"inline-block"});
+        $(this).ajaxSubmit({target: $("#field_{{model_field.id}}").parent()});
+        return false;
+    });
+</script>
