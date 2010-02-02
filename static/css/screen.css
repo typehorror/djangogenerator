@@ -66,6 +66,17 @@ li{
     margin: 5px;
     padding: 5px;
 }
+
+.field{
+    border: 1px solid lightgray;
+    background: #eee;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+
 .model{
     border: 1px solid #ADC8E1;
     background: #D1E0EF;

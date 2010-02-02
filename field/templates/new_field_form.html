@@ -1,0 +1,28 @@
+<div class="field">
+<form action="" method="post">
+{% for field in new_field_form %}
+<p>
+    {{ field.label_tag }} {{ field }} 
+    {% if field.errors %}
+        <span class="errors">
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
+        </span>
+    {% endif %}
+    {% if forloop.first %}
+        <span class="loading" id="model_{{ model.id }}_loading"> &nbsp; </span>
+        <input type="submit" value="add field" />
+        <input type="button" class="delete" value="cancel" onclick="$(this).parents('.fields li').remove();" />
+    {% if saved %}
+        <span id="model_{{ model.id }}_saved" class="saved">Saved</span>
+        <script type="text/javascript">
+            $('#model_{{ model.id }}_saved').fadeIn('fast');
+            setTimeout("$('#model_{{ model.id }}_saved').fadeOut(2000);",1000)
+        </script>
+    {% endif %}
+    {% endif %}
+</p>
+{% endfor %}
+</form>
+</div>

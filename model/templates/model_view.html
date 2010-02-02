@@ -3,7 +3,7 @@
 <div class="model" id="model_{{ model.id }}">
 
     <div id="new_model_field_{{ model.id }}" class="new_model_field">
-    <form id="new_model_field_{{ model.id }}_form" action="{% url new_model_field_form model.id %}" method="post">
+    <form id="new_model_field_{{ model.id }}_form" action="" method="post">
     	{% new_model_field_form model %}
 	</form>
     </div>
@@ -33,6 +33,13 @@
 </div>
 
 <script type="text/javascript">
+    $("#new_model_field_{{ model.id }}").submit(function(){
+        var field_type = $("#id_new_field_{{ model.id }}-type").val();
+        $.get("/field/add/" + field_type + "/{{ model.id }}/", function(data){
+            $("#model_{{ model.id }}_fields_list").append("<li>" + data + "</li>");
+        });
+        return false;
+    });
     $("#model_{{ model.id }}_form").submit(function(){
         $("#model_{{ model.id }}_loading").css({display:"inline-block"});
         $(this).ajaxSubmit({target: '#model_{{ model.id }}_form'});

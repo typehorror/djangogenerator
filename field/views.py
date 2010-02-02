@@ -8,12 +8,16 @@ from django.forms.models import modelformset_factory
 from common.shortcuts import render_response
 from common.utils import paginate
 
+from model.models import Model
 from models import ModelField
 
-@login_required
-def model_field_view(request, model_field_id):
-    model_fied = get_object_or_404(ModelField, model__application__project__owner=request.user, pk=model_field_id)
-    return render_response(request, 'model_field_view.html', {'model_field':model_field})
+from forms import *
+
+FIELD_FORMS = {
+    'charfield': CharFieldForm,
+    'foreignkeyfield': ForeignKeyFieldForm,
+    'manytomanyfield': ManyToManyFieldForm,
+}
 
 @login_required
 @transaction.commit_manually
@@ -33,21 +37,48 @@ def model_field_del(request, model_field_id):
     raise Http404
 
 @login_required
-def model_field_form(request, model_field_id):
-    model_fied = get_object_or_404(ModelField, model__application__project__owner=request.user, pk=model_field_id)
-    import pdb; pdb.set_trace()
+def model_field_form(request, field_type, model_field_id):
+    model_field = get_object_or_404(ModelField, model__application__project__owner=request.user, pk=model_field_id)
     context = {}
-    raise Http404
+    if request.method == 'POST':
+        form = FIELD_CHOICES[field_type](request.POST, prefix="%s_%d" % (field_type,model.id), instance=model_field.object)
+        if form.is_valid():
+            field = form.save()
+            form = FIELD_CHOICES[field_type](instance=field, prefix="%s_%d" % (field_type,field.id))
+    else:
+        form = FIELD_CHOICES[field_type](instance=model_field.object,prefix="%s_%d" % (field_type,model_field.id))
+    context = { 'form_field':form, 'model':model }
+    return render_response(request, 'model_field_form.html', context)
 
-def new_model_field_form(request, model_id):
+@login_required
+def new_model_field_form(request, field_type, model_id):
+    if field_type not in FIELD_FORMS:
+        raise Http404
     model = get_object_or_404(Model, application__project__owner=request.user, pk=model_id)
     context = {}
     if request.method == 'POST':
-        form = NewFieldForm(request.POST, prefiex="new_field_%d" % model_id)
+        form = FIELD_FORMS[field_type](request.POST, prefix="%s_%d" % (field_type,model.id))
         if form.is_valid():
-            context['created'] = True
-            context['field'] = 'test'
+            new_field = form.save()
+            model.fields.add(new_field)
+            form = FIELD_FORMS[field_type](instance=new_field, prefix="%s_%d" % (field_type,new_field.id))
+            context = { 'field_form':form, 'model':model }
+            return render_response(request, 'model_field_form.html', context)
     else:
-       form = NewFieldForm(request.POST, prefiex="new_field_%d" % model_id)
-    context.update({'new_model_field_form': form, 'model': model})
-    return render_response(request, 'new_model_field_form.html', context)
+        form = FIELD_FORMS[field_type](prefix="%s_%d" % (field_type,model.id))
+    context = { 'new_field_form':form, 'model':model }
+    return render_response(request, 'new_field_form.html', context)
+
+
+#def new_model_field_form(request, model_id):
+#    model = get_object_or_404(Model, application__project__owner=request.user, pk=model_id)
+#    context = {}
+#    if request.method == 'POST':
+#        form = NewModelFieldForm(request.POST, prefix="new_field_%d" % model.id)
+#        if form.is_valid():
+#            context['created'] = True
+#            context['field'] = 'test'
+#    else:
+#       form = NewModelFieldForm(request.POST, prefiex="new_field_%d" % model.id)
+#    context.update({'new_model_field_form': form, 'model': model})
+#    return render_response(request, 'new_model_field_form.html', context)

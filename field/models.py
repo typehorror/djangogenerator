@@ -23,7 +23,6 @@ class ModelField(models.Model):
 class Field(models.Model):
     name = models.CharField(max_length=255)
     max_length = models.IntegerField()
-    choices = models.TextField(blank=True)
     null = models.BooleanField(default=False)
     blank = models.BooleanField(default=False)
     default = models.CharField(max_length=255, blank=True)
@@ -44,6 +43,7 @@ class RelationFieldOption(Field):
     Options that belongs to relation fields
     """
     related_name = models.CharField(max_length=255, blank=True)
+    relation = models.ForeignKey('model.Model')
     class Meta:
         abstract = True
 
@@ -56,7 +56,7 @@ class ManyToManyField(RelationFieldOption):
     pass
 
 
-class CharFieldOtion(Field):
+class CharField(Field):
     # indicate if this field will be returned by the the __unicode__ method
     unicode = models.BooleanField(default=False)
-
+    choices = models.TextField(blank=True)
