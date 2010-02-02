@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib.contenttypes import generic
 
 from utils import slugify
 
@@ -22,7 +22,7 @@ class Model(models.Model):
     modification_date = models.DateTimeField(auto_now=True, auto_now_add=True)
 
     def __unicode__(self):
-        return self.name
+        return "%s.%s" % (self.application, self.name)
 
 class Permissions(models.Model):
     model = models.ForeignKey(Model, related_name="permissions")

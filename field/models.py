@@ -22,14 +22,13 @@ class ModelField(models.Model):
 
 class Field(models.Model):
     name = models.CharField(max_length=255)
-    max_length = models.IntegerField()
     null = models.BooleanField(default=False)
     blank = models.BooleanField(default=False)
     default = models.CharField(max_length=255, blank=True)
     help_text = models.CharField(max_length=255, blank=True)
     primary_key = models.BooleanField(default=False)
     unique = models.BooleanField(default=False)
-    verbose_name = models.CharField(max_length=255)
+    verbose_name = models.CharField(max_length=255, blank=True)
     
     class Meta:
         abstract = True
@@ -60,3 +59,4 @@ class CharField(Field):
     # indicate if this field will be returned by the the __unicode__ method
     unicode = models.BooleanField(default=False)
     choices = models.TextField(blank=True)
+    max_length = models.IntegerField(default="255")

@@ -1,5 +1,6 @@
-<div class="field">
-<form action="" method="post">
+<div class="field" id="new_field_{{model.id}}">
+<div class="field_type" >{{ field_type}}</div>
+<form id="new_field_form_{{ model.id }}" action="{% url new_model_field_form field_type model.id %}" method="post">
 {% for field in new_field_form %}
 <p>
     {{ field.label_tag }} {{ field }} 
@@ -11,18 +12,21 @@
         </span>
     {% endif %}
     {% if forloop.first %}
-        <span class="loading" id="model_{{ model.id }}_loading"> &nbsp; </span>
-        <input type="submit" value="add field" />
+        <span class="loading" id="field_{{ model.id }}_loading"> &nbsp; </span>
+        <input type="submit" value="save and add this field" />
         <input type="button" class="delete" value="cancel" onclick="$(this).parents('.fields li').remove();" />
-    {% if saved %}
-        <span id="model_{{ model.id }}_saved" class="saved">Saved</span>
-        <script type="text/javascript">
-            $('#model_{{ model.id }}_saved').fadeIn('fast');
-            setTimeout("$('#model_{{ model.id }}_saved').fadeOut(2000);",1000)
-        </script>
-    {% endif %}
     {% endif %}
 </p>
 {% endfor %}
 </form>
 </div>
+
+<script type="text/javascript">
+
+    $("#new_field_form_{{ model.id }}").submit(function(){
+        $("#field_{{ model.id }}_loading").css({display:"inline-block"});
+        $(this).ajaxSubmit({target: $("#new_field_{{model.id}}").parent()});
+        return false;
+    });
+</script>
+

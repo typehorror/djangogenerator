@@ -128,3 +128,12 @@ form span.loading{
     margin: 0 10px 0 3px;
     display: none;
 }
+
+.field_type{
+    position:absolute;
+    color: #fff;
+    font-size: 3em;
+    right:0px;
+    margin-top:25px;
+    padding-right:50px;
+}
