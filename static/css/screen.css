@@ -77,6 +77,11 @@ li{
     padding: 5px;
 }
 
+.newfield{
+    background: #eeeeb7;
+    border: 2px dashed #333333
+}
+
 .model{
     border: 1px solid #ADC8E1;
     background: #D1E0EF;
@@ -136,4 +141,58 @@ form span.loading{
     right:0px;
     margin-top:25px;
     padding-right:50px;
+}
+
+#generate:hover{
+    background-color: gray;
+}
+
+#generate{
+    position: absolute;
+    padding: 5px 10px;
+    background-color: black;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    right: 10px;
+    top: 10px;
+}
+
+#generate a{
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+#logo-text{
+    top: 30px;
+}
+#logo-text a{
+    font-size: 2em;
+    color: black;
+    text-decoration: none;
+}
+
+#logo-text a span{
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    background-color:#336446;
+    font-family:'Trebuchet MS',sans-serif;
+    color:white;
+    padding:10px;
+}
+
+#logout{
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 3px 6px;
+    width: 100px;
+    text-align: center;
+}
+
+#logout a{
+    font-size: 1.3em;
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
 }

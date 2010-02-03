@@ -10,6 +10,10 @@ class ModelForm(forms.ModelForm):
                   'description',
                   'verbose_name',
                   'verbose_name_plural',
+                  'is_in_menu',
+                  'has_read_only_view',
+                  'has_form_view',
+                  'has_admin_view',
                   'db_table',)
 
     def clean_name(self):

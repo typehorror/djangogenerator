@@ -12,20 +12,11 @@
     <form id="model_{{ model.id }}_form" action="{% url model_form model.id %}" method="post">
     {% model_form model %}
     </form>
-    <div id="model_{{ model.id }}_models">
-        <ul class="models">
-        {% for model in model.fields.all %}
-            <li>
-            {{ field
-            </li>
-        {% endfor %}
-        </ul>
-    </div>
     <div id="model_{{ model.id }}_fields">
         <ul class="fields" id="model_{{ model.id }}_fields_list">
-        {% for field in models.fields.all %}
+        {% for model_field in model.model_fields.all %}
             <li>
-                {{ model_fields.object }}
+            {% field_form model_field %}
             </li>
         {% endfor %}
         </ul>
@@ -37,7 +28,7 @@
         var field_type = $("#id_new_field_{{ model.id }}-type").val();
         $.get("/field/add/" + field_type + "/{{ model.id }}/", function(data){
             $("#new_field_{{ model.id }}").remove();
-            $("#model_{{ model.id }}_fields_list").append("<li>" + data + "</li>");
+            $("#model_{{ model.id }}_fields_list").prepend("<li>" + data + "</li>");
         });
         return false;
     });

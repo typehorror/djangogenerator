@@ -21,6 +21,11 @@ class Model(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True, auto_now_add=True)
 
+    is_in_menu = models.BooleanField(default=False)
+    has_read_only_view = models.BooleanField(default=False)
+    has_form_view = models.BooleanField(default=False)
+    has_admin_view = models.BooleanField(default=True)
+
     def __unicode__(self):
         return "%s.%s" % (self.application, self.name)
 

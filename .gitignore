@@ -7,3 +7,4 @@ src/*
 common
 djangodblog
 backup*
+*.tgz

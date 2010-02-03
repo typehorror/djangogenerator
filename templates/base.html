@@ -30,11 +30,13 @@
 	<div id="header">			
 	
     {% block logout%}
-        <a href="/logout">logout</a>
+        <div id="logout">
+            <a href="/logout">logout</a>
+        </div>
     {% endblock %}
 		<a name="top"></a>
 		
-		<h1 id="logo-text"><a href="/" title="">Django Generator</a></h1>		
+		<h1 id="logo-text"><a href="/" title=""><span>Django</span> Generator</a></h1>		
      </div>
     <div id="content">
     {% block content %}
