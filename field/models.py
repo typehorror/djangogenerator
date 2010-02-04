@@ -34,12 +34,13 @@ class Field(models.Model):
     unique = models.BooleanField(default=False)
     verbose_name = models.CharField(max_length=255, blank=True)
     
+    ignored_options = ('unicode', 'datefield_ptr', 'name', 'id')
     class Meta:
         abstract = True
     def get_options(self):
         options = []
         for field in self._meta.fields:
-            if field.name not in('unicode', 'name', 'id') and self.__getattribute__(field.name):
+            if field.name not in self.ignored_options and self.__getattribute__(field.name):
                 value = self.__getattribute__(field.name)
                 if isinstance(value, (unicode, str)) :
                     option = '%s="%s"' % (field.name, value)
@@ -73,7 +74,7 @@ class ManyToManyField(RelationFieldOption):
     #TODO: see if "through" doesn't make the app more complex
     #through = models.ForeignKey(Model)
     form = 'ManyToManyFieldForm'
-    field_type = 'ManyToMany'
+    field_type = 'ManyToManyField'
 admin.site.register(ManyToManyField)
 
 

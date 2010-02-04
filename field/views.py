@@ -15,7 +15,7 @@ from forms import *
 
 FIELD_FORMS = {
     'ForeignKey': ForeignKeyFieldForm,
-    'ManyToMany': ManyToManyFieldForm,
+    'ManyToManyField': ManyToManyFieldForm,
     'AutoField': AutoFieldForm,
     'BigIntegerField': BigIntegerFieldForm,
     'BooleanField': BooleanFieldForm,
