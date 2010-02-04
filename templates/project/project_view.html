@@ -14,7 +14,9 @@
     </div>
     <div id="project_{{ project.id }}" class="project_form">
     <form action="" method="post">
+        <p>
         <input type="submit" value="Save project" />
+        </p>
         {{ project_form.as_p }}
     </form>
     </div>
@@ -26,13 +28,16 @@
             </li>
         {% endfor %}
     </ul>
+    </div>
 
 <script type="text/javascript">
+    // <![CDATA[
     $("#new_application_{{ project.id }}_form").submit(function(){
         $("#new_application_{{ project.id }}_loading").css({display:'inline-block'});
         $(this).ajaxSubmit({target: '#new_application_{{ project.id }}_form'});
         return false;
     });
+    // ]]>
 </script>
 
 {% endblock content %}

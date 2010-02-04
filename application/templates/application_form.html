@@ -15,14 +15,17 @@
     {% if saved %}
         <span id="application_{{ application.id }}_saved" class="saved">Saved</span>
         <script type="text/javascript">
+            // <![CDATA[
             $('#application_{{ application.id }}_saved').fadeIn('fast');
             setTimeout("$('#application_{{ application.id }}_saved').fadeOut(2000);",1000);
+            // ]]>
         </script>
     {% endif %}
     {% endif %}
 </p>
 {% endfor %}
 <script type="text/javascript">
+    // <![CDATA[
     $("#application_{{ application.id }}_delete").click(function(){
         var del_object = confirm('Are you sure you want to delete "{{ application.name }}" ?'); 
         if ( del_object == true ){
@@ -31,4 +34,5 @@
                 });
             }
         });
+    // ]]>
 </script>

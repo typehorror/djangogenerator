@@ -3,27 +3,29 @@
 <div class="model" id="model_{{ model.id }}">
 
     <div id="new_model_field_{{ model.id }}" class="new_model_field">
-    <form id="new_model_field_{{ model.id }}_form" action="" method="post">
-    	{% new_model_field_form model %}
-	</form>
+        <form id="new_model_field_{{ model.id }}_form" action="" method="post">
+            {% new_model_field_form model %}
+        </form>
     </div>
 
     <div class="model_form">
-    <form id="model_{{ model.id }}_form" action="{% url model_form model.id %}" method="post">
-    {% model_form model %}
-    </form>
-    <div id="model_{{ model.id }}_fields">
-        <ul class="fields" id="model_{{ model.id }}_fields_list">
-        {% for model_field in model.model_fields.all %}
-            <li>
-            {% field_form model_field %}
-            </li>
-        {% endfor %}
-        </ul>
+        <form id="model_{{ model.id }}_form" action="{% url model_form model.id %}" method="post">
+            {% model_form model %}
+        </form>
+        <div id="model_{{ model.id }}_fields">
+            <ul class="fields" id="model_{{ model.id }}_fields_list">
+            {% for model_field in model.model_fields.all %}
+                <li>
+                {% field_form model_field %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
 
 <script type="text/javascript">
+    // <![CDATA[
     $("#new_model_field_{{ model.id }}").submit(function(){
         var field_type = $("#id_new_field_{{ model.id }}-type").val();
         $.get("/field/add/" + field_type + "/{{ model.id }}/", function(data){
@@ -37,5 +39,6 @@
         $(this).ajaxSubmit({target: '#model_{{ model.id }}_form'});
         return false;
     });
+    // ]]>
 </script>
 

@@ -22,10 +22,12 @@
 </div>
 
 <script type="text/javascript">
+    // <![CDATA[
     $("#new_field_form_{{ model.id }}").submit(function(){
         $("#field_{{ model.id }}_loading").css({display:"inline-block"});
         $(this).ajaxSubmit({target: $("#new_field_{{model.id}}").parent()});
         return false;
     });
+    //]]>
 </script>
 

@@ -22,6 +22,7 @@
 </div>
 
 <script type="text/javascript">
+    // <![CDATA[
     $("#field_{{ model_field.id }}_delete").click(function(){
         var del_object = confirm('Are you sure you want to delete the field "{{ model_field.object.name }}" ?'); 
         if ( del_object == true ){
@@ -36,4 +37,5 @@
         $(this).ajaxSubmit({target: $("#field_{{model_field.id}}").parent()});
         return false;
     });
+    // ]]>
 </script>

@@ -11,16 +11,18 @@
     </span>
 {% endif %}
 
-    <span class="loading" id="new_field_{{ application.id }}_loading"> &nbsp; </span>
+    <span class="loading" id="new_field_{{ model.id }}_loading"> &nbsp; </span>
     <input type="submit" value="+ add field" />
 {% if created %}
     <span id="model_{{ model.id }}_created" class="saved">Created</span>
     <script type="text/javascript">
+        // <![CDATA[
         $('#model_{{ model.id }}_created').fadeIn('fast');
         $.get("{% url model_view model.id %}",function(data){
             $("#application_{{ model.application.id  }}_models_list").append("<li>"+data+"</li>");
         });
         setTimeout("$('#model_{{ model.id }}_created').fadeOut(2000);",1000);
+        // ]]>
     </script>
 {% endif %}
-
+</p>

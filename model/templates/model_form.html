@@ -15,8 +15,10 @@
     {% if saved %}
         <span id="model_{{ model.id }}_saved" class="saved">Saved</span>
         <script type="text/javascript">
+            // <![CDATA[
             $('#model_{{ model.id }}_saved').fadeIn('fast');
             setTimeout("$('#model_{{ model.id }}_saved').fadeOut(2000);",1000)
+            // ]]>
         </script>
     {% endif %}
     {% endif %}
@@ -24,6 +26,7 @@
 {% endfor %}
 
 <script type="text/javascript">
+    // <![CDATA[
     $("#model_{{ model.id }}_delete").click(function(){
         var del_object = confirm('Are you sure you want to delete the model "{{ model.name }}" ?'); 
         if ( del_object == true ){
@@ -32,5 +35,6 @@
                 });
             }
         });
+    // ]]>
 </script>
 
