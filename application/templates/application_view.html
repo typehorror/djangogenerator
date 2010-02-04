@@ -1,7 +1,7 @@
 {% load model_tags %}
 {% load application_tags %}
 <div class="application" id="application_{{ application.id }}">
-    <div id="new_model_{{ application.id }}" class="new_model">
+    <div id="new_model_{{ application.id }}" class="new_model new_form">
     <form id="new_model_{{ application.id }}_form" action="{% url new_model_form application.id %}" method="post">
     	{% new_model_form application %}
 	</form>

@@ -34,37 +34,32 @@ li{
     list-style-type: none;
 }
 
-.new_model{
-    border: 1px solid #009E77;
-    background-color: #00EBB0;
+.new_form{
+    border: 1px solid #336446;
+    background-color: #64AF81;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 5px;
     padding: 5px;
     display: block;
+}
+
+.new_form label{
+    color: #eee;
+}
+
+.new_model{
     float: right;
 }
 
 .new_model_field{
-    border: 1px solid #009E77;
-    background-color: #00EBB0;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    margin: 5px;
-    padding: 5px;
-    display: block;
     position: absolute;
     right: 25px;
     margin-top: 40px;
 }
 
 .new_application{
-    border: 1px solid #009E77;
-    background-color: #00EBB0;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    margin: 5px;
-    padding: 5px;
+    float: right;
 }
 
 .field{
@@ -190,7 +185,7 @@ form span.loading{
     text-align: center;
 }
 
-#logout a{
+#logout a {
     font-size: 1.3em;
     color: red;
     font-weight: bold;
@@ -207,7 +202,7 @@ form span.loading{
     -webkit-border-radius: 6px;
 }
 
-.box_form input[type=submit]{
+.box_form input[type=submit] {
     margin-top: 5px;
     border-color: #336446;
     background-color:#336446;

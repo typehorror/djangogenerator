@@ -7,7 +7,7 @@
         <a href="{% url project_generate project.id %}">Generate and Download Project</a>
     </div>
     {% endif %}
-    <div id="new_application_{{ project.id }}" class="new_application">
+    <div id="new_application_{{ project.id }}" class="new_application new_form">
     <form id="new_application_{{ project.id }}_form" action="{% url new_application_form project.id %}" method="post">
     	{% new_application_form project %}
 	</form>
