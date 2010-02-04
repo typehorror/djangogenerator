@@ -13,8 +13,17 @@
     {% endif %}
     {% if forloop.first %}
         <span class="loading" id="field_{{ model_field.id }}_loading"> &nbsp; </span>
-        <input type="submit" value="save field" />
+        <input type="submit" value="save field" class="save"/>
         <input type="button" class="delete" value="delete" id="field_{{ model_field.id }}_delete"/>
+    {% if saved %}
+        <span id="model_field_{{ model_field.id }}_saved" class="saved">Saved</span>
+        <script type="text/javascript">
+            // <![CDATA[
+            $('#model_field_{{ model_field.id }}_saved').fadeIn('fast');
+            setTimeout("$('#model_field_{{ model_field.id }}_saved').fadeOut(2000);",1000)
+            // ]]>
+        </script>
+    {% endif %}
     {% endif %}
 </p>
 {% endfor %}

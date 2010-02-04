@@ -10,10 +10,10 @@
     {% endif %}
     </div>
 
-    <ul>
+    <ul class="project_list">
     {% for project in projects.object_list %}
         <li>
-            <a href="#" onclick="alert('Are you sure you want to delete this project')">x</a> <a href="{{ project.get_absolute_url }}">{{ project.name }} </a>
+            <a href="#" onclick="alert('Are you sure you want to delete this project')"><img src="{{STATIC_URL}}images/delete.png" width="16" height="16"></a> <a href="{{ project.get_absolute_url }}">{{ project.name }}  created on {{ project.modification_date|date:"l, jS F, Y" }} - {{ project.applications.count }} applications (click to view)</a>
         </li>
     {% endfor %}
     </ul>
@@ -22,7 +22,7 @@
     <form action="" method="post">
         {{ new_project_form.as_p }}
         <p>
-            <input type="submit" value="create project" />
+            <input type="submit" value="create project" class="add"/>
         </p>
     </form>
     </div>

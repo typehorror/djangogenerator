@@ -13,7 +13,7 @@
     {% endif %}
     {% if forloop.first %}
         <span class="loading" id="field_{{ model.id }}_loading"> &nbsp; </span>
-        <input type="submit" value="save and add this field" />
+        <input type="submit" value="save and add this field" class="save"/>
         <input type="button" class="delete" value="cancel" onclick="$(this).parents('.fields li').remove();" />
     {% endif %}
 </p>

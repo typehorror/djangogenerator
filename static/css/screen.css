@@ -1,6 +1,7 @@
 body{
     font-family: "Lucida Grande",Verdana,Arial,sans-serif;
     font-size:.8em;
+    color: #555;
 }
 
 form textarea{
@@ -21,6 +22,15 @@ form label{
     font-weight: bold;
 }
 
+img {
+    border: 0px
+}
+
+h2 {
+    text-align: center;
+    font-size: 3em;
+}
+
 form input:focus, form textarea:focus, form select:focus {
     background-color: #FFFFCC;
 }
@@ -35,17 +45,24 @@ li{
 }
 
 .new_form{
-    border: 1px solid #336446;
-    background-color: #64AF81;
+    background-color: #F8FFF0;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 5px;
     padding: 5px;
     display: block;
+    border: 1px solid #A0DC11
+
 }
 
 .new_form label{
-    color: #eee;
+    color: #777;
+    width: auto;
+    margin-right: 3px;
+}
+
+.new_form form input[type=submit]{
+    float: none;
 }
 
 .new_model{
@@ -59,7 +76,9 @@ li{
 }
 
 .new_application{
-    float: right;
+    position: absolute;
+    right: 15px;
+    margin-top: 40px;
 }
 
 .field{
@@ -82,10 +101,18 @@ li{
     background-color: #D1E0EF;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    margin: 5px;
+    margin: 10px 5px 5px 5px;
     padding: 5px;
 }
 
+.project_form{
+    border: 1px solid #ADC8E1;
+    background-color: #D1E0EF;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 5px 5px 5px 25px;
+    padding: 5px;
+}
 .application{
     border: 1px solid lightgray;
     background-color: #eee;
@@ -98,14 +125,32 @@ li{
 
 form input[type=submit], form input[type=button]{
     float: right;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
+    -moz-border-radius: 9px 3px 3px 9px;
+    -webkit-border-top-left-radius: 9px;
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-bottom-left-radius: 9px;
     margin-left: 5px;
+    background: #eee url(../images/accept.png) 2px center no-repeat;
+    padding: 3px 5px 3px 20px;
+}
+
+form input.add{
+    border-color: gray;
+    padding: 3px 5px 3px 22px;
+    background: url(../images/add.png) no-repeat 3px center #eeeeee;
+}
+
+form input.save{
+    border-color: gray;
+    padding: 3px 5px 3px 22px;
+    background: url(../images/database_save.png) no-repeat 4px center #eeeeee;
 }
 
 form input.delete{
-    background-color: #ECC6C6;
     border-color: #C65353;
+    padding: 3px 5px 3px 22px;
+    background: url(../images/delete.png) no-repeat 3px center #ECC6C6;
 }
 
 form span.saved{
@@ -194,8 +239,8 @@ form span.loading{
 
 .box_form {
     width: 400px;
-    border: 1px solid #eee;
-    background-color: #eee;
+    border: 1px solid #D1E0EF;
+    background-color: #D1E0EF;
     margin: 60px auto;
     padding: 10px 10px 40px;
     -moz-border-radius: 6px;
@@ -205,13 +250,27 @@ form span.loading{
 .box_form input[type=submit] {
     margin-top: 5px;
     border-color: #336446;
-    background-color:#336446;
-    color: white;
-    font-weight: bold;
-    padding: 4px  8px;
 }
 
 ul.errorlist {
     color: red;
     font-weight: bold;
+}
+
+.project_list {
+    margin-top: 40px;
+}
+
+.project_list li{
+   margin: 3px;
+   font-size: 1.2em;
+}
+
+.project_list a{
+    text-decoration: none;
+    color: #555;
+}
+
+.project_list a:hover{
+    color: #0BAEBF;
 }

@@ -10,7 +10,7 @@
     {% endif %}
     {% if forloop.first %}
         <span class="loading" id="model_{{ model.id }}_loading"> &nbsp; </span>
-        <input type="submit" value="save model" />
+        <input type="submit" value="save model" class="save"/>
         <input type="button" class="delete" value="delete model" id="model_{{ model.id }}_delete" />
     {% if saved %}
         <span id="model_{{ model.id }}_saved" class="saved">Saved</span>

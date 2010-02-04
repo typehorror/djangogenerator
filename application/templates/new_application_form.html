@@ -10,7 +10,7 @@
     {% endif %}
     {% if forloop.first %}
         <span class="loading" id="new_application_{{ project.id }}_loading"> &nbsp; </span>
-        <input type="submit" value="+ add application" />
+        <input type="submit" value="add application" class="add" />
     {% if created %}
         <span id="application_{{ application.id }}_created" class="saved">Created</span>
         <script type="text/javascript">

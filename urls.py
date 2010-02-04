@@ -32,7 +32,7 @@ urlpatterns += patterns('django.views.generic.simple',
 
 if settings.DEBUG:
     urlpatterns+= patterns('',
-        (r'static/(?P<path>.*)$', 'django.views.static.serve', {'document_root':os.path.join(settings.PROJECT_PATH,'static/')}),
-        (r'media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':os.path.join(settings.PROJECT_PATH,'media/')}),
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root':os.path.join(settings.PROJECT_PATH,'static/')}),
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':os.path.join(settings.PROJECT_PATH,'media/')}),
     )
 

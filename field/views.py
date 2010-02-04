@@ -68,6 +68,7 @@ def model_field_form(request, field_type, model_field_id):
         if form.is_valid():
             field = form.save()
             form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, instance=model_field.object, prefix="%s_%d" % (model_field.object.field_type,model_field.id))
+            context['saved'] = True
     else:
         form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, instance=model_field.object, prefix="%s_%d" % (model_field.object.field_type,model_field.id))
     context.update({'field_form':form, 

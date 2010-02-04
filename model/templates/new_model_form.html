@@ -10,7 +10,7 @@
     {% endif %}
     {% if forloop.first %}
         <span class="loading" id="new_model_{{ application.id }}_loading"> &nbsp; </span>
-        <input type="submit" value="+ add model" />
+        <input type="submit" value="add model" class="add"/>
     {% if created %}
         <span id="model_{{ model.id }}_created" class="saved">Created</span>
         <script type="text/javascript">

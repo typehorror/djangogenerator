@@ -10,7 +10,7 @@
     {% endif %}
     {% if forloop.first %}
         <span class="loading" id="application_{{ application.id }}_loading"> &nbsp; </span>
-        <input type="submit" value="save application" />
+        <input type="submit" value="save application" class="save" />
         <input type="button" class="delete" value="delete application" id="application_{{ application.id }}_delete" />
     {% if saved %}
         <span id="application_{{ application.id }}_saved" class="saved">Saved</span>
