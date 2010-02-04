@@ -21,7 +21,7 @@ form label{
     font-weight: bold;
 }
 
-form input:focus, form textarea:focus, form select:focus{
+form input:focus, form textarea:focus, form select:focus {
     background-color: #FFFFCC;
 }
 
@@ -36,7 +36,7 @@ li{
 
 .new_model{
     border: 1px solid #009E77;
-    background: #00EBB0;
+    background-color: #00EBB0;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 5px;
@@ -47,7 +47,7 @@ li{
 
 .new_model_field{
     border: 1px solid #009E77;
-    background: #00EBB0;
+    background-color: #00EBB0;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 5px;
@@ -60,7 +60,7 @@ li{
 
 .new_application{
     border: 1px solid #009E77;
-    background: #00EBB0;
+    background-color: #00EBB0;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 5px;
@@ -69,7 +69,7 @@ li{
 
 .field{
     border: 1px solid lightgray;
-    background: #eee;
+    background-color: #eee;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 10px;
@@ -84,7 +84,7 @@ li{
 
 .model{
     border: 1px solid #ADC8E1;
-    background: #D1E0EF;
+    background-color: #D1E0EF;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 5px;
@@ -93,7 +93,7 @@ li{
 
 .application{
     border: 1px solid lightgray;
-    background: #eee;
+    background-color: #eee;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 10px;
@@ -182,7 +182,7 @@ form span.loading{
     padding:10px;
 }
 
-#logout{
+#logout {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 3px 6px;
@@ -197,20 +197,26 @@ form span.loading{
     text-decoration: none;
 }
 
-#login_div{
+.box_form {
     width: 400px;
     border: 1px solid #eee;
     background-color: #eee;
     margin: 60px auto;
-    padding: 40px 10px;
+    padding: 10px 10px 40px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
 }
 
-#login_div input{
+.box_form input[type=submit]{
+    margin-top: 5px;
+    border-color: #336446;
+    background-color:#336446;
+    color: white;
+    font-weight: bold;
+    padding: 4px  8px;
 }
 
-ul.errorlist{
+ul.errorlist {
     color: red;
     font-weight: bold;
 }
