@@ -37,12 +37,29 @@
      {% tag block auth %} 
      <div id="auth">
         {% tag if user.is_authenticated %}
-        hello {% var user.username %} - <a href="{% tag url django.contrib.auth.views.logout_then_login %}">{% tag trans 'Log Out' %}</a>
+        hello {% var user.username %} - <a href="{% tag url logout_then_login %}">{% tag trans 'Log Out' %}</a>
         {% tag else %}
 
-        <a href="{% var login_url %}">{% tag trans 'Log In' %}</a>
+        <a href="{% tag url django.contrib.auth.views.login %}">{% tag trans 'Log In' %}</a>
         {% tag endif %}
     {% tag endblock auth %} 
+    </div>
+    <div id="menu">
+    <!-- start menu -->
+    {% tag block menu %}
+    <ul>
+    {% for application in project.applications.all %}
+    {% for model in application.models.all  %}
+    {% if model.has_read_only_view or model.has_form_view %}
+    <li>
+        <a href="{% templatetag openblock %} url {{ application.name }}_{{ model.name.lower }}_list {% templatetag closeblock %}">{{ model.name }}</a>
+    <li>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    </ul>
+    {% tag endblock menu %}
+    <!-- end menu -->
     </div>
     <div id="content">
     <!-- start content -->	

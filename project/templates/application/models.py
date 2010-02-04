@@ -5,7 +5,7 @@ class {{ model.name }}(models.Model):
     {{ model.description }}
     """{% endif %}
     {% for model_field in model.model_fields.all %}
-        {{ model_field.object|safe }}{% endfor %}
+    {{ model_field.object|safe }}{% endfor %}
 
 {% if  model.has_read_only_view or model.has_form_view %}
     @models.permalink

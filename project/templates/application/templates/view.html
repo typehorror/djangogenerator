@@ -1,0 +1,11 @@
+{% load project_tags %}{% templatetag openblock %}extends "{{ model.name.lower }}_base.html" {% templatetag closeblock %}
+{% tag block content %}
+<div>
+    {% for model_field in model.model_fields.all %}
+    <p>
+        <span>{{ model_field.object.name }}: </span>
+        {% templatetag openvariable %} {{ model.name.lower }}.{{ model_field.object.name }} {% templatetag closevariable %}
+    </p> 
+    {% endfor %}
+</div>
+{% tag endblock content %}

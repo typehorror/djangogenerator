@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.shortcuts import get_object_or_404
 
 from models import *
 from forms import *
@@ -11,9 +12,9 @@ def view_{{ model.name.lower }}(request, {{ model.name.lower }}_id):
     """
     Allow input of data on {{ model.name.lower }}
     """
-    {{ model.name.lower }} = get_object_or_404({{ model.name }} ,pk={{ model.name.lower }}_id)
+    {{ model.name.lower }} = get_object_or_404({{ model.name }}, pk={{ model.name.lower }}_id)
     context = {'{{ model.name.lower }}': {{ model.name.lower }} }
-    return render_to_response('view_{{ model.name.lower }}.html',
+    return render_to_response('{{ model.name.lower }}_view.html',
                               context,
                               context_instance=RequestContext(request))
 
@@ -23,7 +24,7 @@ def list_{{ model.name.lower }}(request):
     """
     Display a list of {{ model.name }} paginated
     """
-    {{ model.name.lower }}_list = {{ model.name }}.objects.filter.all()
+    {{ model.name.lower }}_list = {{ model.name }}.objects.all()
     paginator = Paginator({{ model.name.lower }}_list, 5)
 
     try:
@@ -38,7 +39,7 @@ def list_{{ model.name.lower }}(request):
         {{ model.name.lower }}_list = paginator.page(paginator.num_pages)
 
     context = {'{{ model.name.lower }}_list': {{ model.name.lower }}_list }
-    return render_to_response('list_{{ model.name.lower }}.html',
+    return render_to_response('{{ model.name.lower }}_list.html',
                               context,
                               context_instance=RequestContext(request))
 {% endif %}
@@ -56,9 +57,9 @@ def form_{{ model.name.lower }}(request, {{ model.name.lower }}_id):
         form = {{ model.name }}Form(instance={{ model.name.lower }})
 
     context = {'{{ model.name.lower }}': {{ model.name.lower }},
-               'form': form }
+               '{{ model.name.lower }}_form': form }
 
-    return render_to_response('form_{{ model.name.lower }}.html',
+    return render_to_response('{{ model.name.lower }}_form.html',
                               context,
                               context_instance=RequestContext(request))
         

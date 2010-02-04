@@ -69,10 +69,13 @@ def project_generate(request, project_id):
     # generate the url file and save it
     generate('urls.py', os.path.join(output_folder, 'urls.py'), context)
 
+    # generate __init__ file
+    generate('__init__.py', os.path.join(output_folder, '__init__.py'), context)
+
 
     # generate the settings(_local) files and save them
     generate('settings.py', os.path.join(output_folder, 'settings.py'), context)
-    generate('settings_local.py', os.path.join(output_folder, 'settings_local.py'), context)
+    # generate('settings_local.py', os.path.join(output_folder, 'settings_local.py'), context)
 
     # generate the manage.py file
     generate('manage.py', os.path.join(output_folder, 'manage.py'), context)
@@ -82,6 +85,7 @@ def project_generate(request, project_id):
     templates_folder = os.path.join(output_folder, 'templates')
     os.mkdir(templates_folder)
     generate('templates/base.html', os.path.join(templates_folder, 'base.html'), context)
+    generate('templates/homepage.html', os.path.join(templates_folder, 'homepage.html'), context)
 
     # generate registration templates if necessary
     registration_folder = os.path.join(templates_folder, 'registration')
@@ -108,9 +112,6 @@ def project_generate(request, project_id):
                  'print.css']
     for filename in css_files:
         generate('media/css/%s' % filename, os.path.join(css_folder, filename), context)
-
-
-
 
     for application in project.applications.all():
         # make sure we don't generate empty models

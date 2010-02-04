@@ -19,15 +19,14 @@ urlpatterns = patterns('',
 
     {% if project.has_registration %}
     (r'^registration/', include('django.contrib.auth.urls')),
+    url(r'^registration/logout', 'django.contrib.auth.views.logout_then_login', name='logout_then_login'),
     {% endif %}
 
 )
 
-{% comment %}
 urlpatterns += patterns('django.views.generic.simple',
-    (r'^$', 'redirect_to', {'url': '/project/list/'}),
+    url(r'^$', 'direct_to_template', {'template': 'homepage.html'}, name="homepage"),
 )
-{% endcomment %}
 
 if settings.DEBUG:
     urlpatterns+= patterns('',

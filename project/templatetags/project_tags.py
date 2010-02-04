@@ -5,7 +5,7 @@ register = template.Library()
 def var(parser, token):
     tokens = token.split_contents()
     tag_name, parameters = tokens[0], tokens[1:]
-    return VarNode
+    return VarNode(parameters)
 
 class VarNode(template.Node):
     def __init__(self, content):

@@ -9,19 +9,19 @@
 <div id="login_div">
 <form method="post" action="{% tag url django.contrib.auth.views.login %}">{% tag csrf_token %}
 <p>
-    {% tag form.username.label_tag %}
-    {% tag form.username %}
+    {% var form.username.label_tag %}
+    {% var form.username %}
 </p>
 <p>
-    {% tag form.password.label_tag %}
-    {% tag form.password %}
+    {% var form.password.label_tag %}
+    {% var form.password %}
 </p>
 <p>
 <a href="{% tag url django.contrib.auth.views.password_reset %}">reset password</a>
 </p>
 
 <input type="submit" value="login" />
-<input type="hidden" name="next" value="{% tag next %}" />
+<input type="hidden" name="next" value="{% var next %}" />
 </form>
 </div>
 

@@ -41,11 +41,15 @@ class Field(models.Model):
         for field in self._meta.fields:
             if field.name not in('unicode', 'name', 'id') and self.__getattribute__(field.name):
                 value = self.__getattribute__(field.name)
-                if isinstance(value, (unicode, str)):
+                if isinstance(value, (unicode, str)) :
                     option = '%s="%s"' % (field.name, value)
                 else:
                     option = '%s=%s' % (field.name, value)
-                options.append(option)
+                if field.name == 'relation':
+                    option = '"%s"' % value
+                    options.insert(0,option)
+                else:
+                    options.append(option)
         return options
 
     def __unicode__(self):
@@ -62,14 +66,14 @@ class RelationFieldOption(Field):
 
 class ForeignKeyField(RelationFieldOption):
     form = 'ForeignKeyFiedForm'
-    field_type = 'ForeignKeyField'
+    field_type = 'ForeignKey'
 admin.site.register(ForeignKeyField)
 
 class ManyToManyField(RelationFieldOption):
     #TODO: see if "through" doesn't make the app more complex
     #through = models.ForeignKey(Model)
     form = 'ManyToManyFieldForm'
-    field_type = 'ManyToManyField'
+    field_type = 'ManyToMany'
 admin.site.register(ManyToManyField)
 
 
