@@ -9,8 +9,8 @@ except ImportError:
         # ('Your Name', 'your_email@domain.com'),
     )
 
-    DATABASE_ENGINE = ''           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-    DATABASE_NAME = ''             # Or path to database file if using sqlite3.
+    DATABASE_ENGINE = 'sqlite3'    # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+    DATABASE_NAME = '{{ project.name}}.db' # Or path to database file if using sqlite3.
     DATABASE_USER = ''             # Not used with sqlite3.
     DATABASE_PASSWORD = ''         # Not used with sqlite3.
     DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -54,7 +54,7 @@ MEDIA_URL = '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/admin_media/'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -78,8 +78,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 ROOT_URLCONF = 'urls'
-LOGIN_REDIRECT_URL = '/project/list/'
-LOGIN_URL = '/login/'
+{% if project.has_registration %}
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/registration/login/'
+{% endif %}
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates'),
@@ -95,6 +97,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    {% for application in applications %}'{{application}}',
+    {% for application in project.applications.all %}'{{application.name}}',
     {% endfor %}
 )

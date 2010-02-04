@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+{% load project_tags %}
+{% tag load i18n %}
+
+<head>
+
+<title>{% tag block title %}{{project.name}}{% tag endblock title %}</title>
+
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="author" content="{{ project.owner.first_name }} {{project.owner.last_name }} - {{ project.owner.email }}" />
+<meta name="description" content="{{ project.description }}" />
+<meta name="keywords" content="" />
+<meta name="robots" content="index, follow, noarchive" />
+<meta name="googlebot" content="noarchive" />
+
+{% tag block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% var MEDIA_URL %}css/reset.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% var MEDIA_URL %}css/screen.css" />
+<link rel="stylesheet" type="text/css" media="print" href="{% var MEDIA_URL %}css/print.css" />
+<!--[if IE 6]><link rel="stylesheet" type="text/css" href="{% var MEDIA_URL %}css/ie6.css" media="screen" /><![endif]-->
+{% tag endblock stylesheet %}
+</head>
+
+<body>
+
+<!-- wrap -->
+<div id="wrap">
+
+	<!-- header -->
+	<div id="header">			
+	
+		<a name="top"></a>
+		
+		<h1 id="logo-text"><a href="/" title="">{{ project.name }}</a></h1>		
+     </div>
+     {% tag block auth %} 
+     <div id="auth">
+        {% tag if user.is_authenticated %}
+        hello {% var user.username %} - <a href="{% tag url django.contrib.auth.views.logout_then_login %}">{% tag trans 'Log Out' %}</a>
+        {% tag else %}
+
+        <a href="{% var login_url %}">{% tag trans 'Log In' %}</a>
+        {% tag endif %}
+    {% tag endblock auth %} 
+    </div>
+    <div id="content">
+    <!-- start content -->	
+    {% tag block content %}
+    {% tag endblock content %}
+    <!-- end content -->	
+    </div>
+</body>
+</html>

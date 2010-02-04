@@ -1,0 +1,28 @@
+{% load project_tags %}{% tag extends "base.html" %}
+{% tag load i18n %}
+{% tag block content %}
+
+{% tag if form.errors %}
+<p>{% tag trans "Your username and password didn't match. Please try again." %}</p>
+{% tag endif %}
+
+<div id="login_div">
+<form method="post" action="{% tag url django.contrib.auth.views.login %}">{% tag csrf_token %}
+<p>
+    {% tag form.username.label_tag %}
+    {% tag form.username %}
+</p>
+<p>
+    {% tag form.password.label_tag %}
+    {% tag form.password %}
+</p>
+<p>
+<a href="{% tag url django.contrib.auth.views.password_reset %}">reset password</a>
+</p>
+
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{% tag next %}" />
+</form>
+</div>
+
+{% tag endblock content %}

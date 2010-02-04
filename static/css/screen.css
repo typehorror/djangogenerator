@@ -196,3 +196,21 @@ form span.loading{
     font-weight: bold;
     text-decoration: none;
 }
+
+#login_div{
+    width: 400px;
+    border: 1px solid #eee;
+    background-color: #eee;
+    margin: 60px auto;
+    padding: 40px 10px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+}
+
+#login_div input{
+}
+
+ul.errorlist{
+    color: red;
+    font-weight: bold;
+}

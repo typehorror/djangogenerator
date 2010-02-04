@@ -6,20 +6,23 @@
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
+<div id="login_div">
 <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
+<p>
+    {{ form.username.label_tag }}
+    {{ form.username }}
+</p>
+<p>
+    {{ form.password.label_tag }}
+    {{ form.password }}
+</p>
+<p>
+<a href="{% url django.contrib.auth.views.password_reset %}">reset password</a>
+</p>
 
 <input type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
+</div>
 
 {% endblock %}

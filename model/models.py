@@ -29,6 +29,10 @@ class Model(models.Model):
     def __unicode__(self):
         return "%s.%s" % (self.application, self.name)
 
+    def unicode_field(self):
+        unicodes = self.model_fields.filter(object__unicode=True)
+        return unicodes and unicodes[0] or False
+
 class Permissions(models.Model):
     model = models.ForeignKey(Model, related_name="permissions")
     name = models.CharField(max_length=55)

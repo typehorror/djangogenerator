@@ -36,9 +36,20 @@ class Field(models.Model):
     
     class Meta:
         abstract = True
+    def get_options(self):
+        options = []
+        for field in self._meta.fields:
+            if field.name not in('unicode', 'name', 'id') and self.__getattribute__(field.name):
+                value = self.__getattribute__(field.name)
+                if isinstance(value, (unicode, str)):
+                    option = '%s="%s"' % (field.name, value)
+                else:
+                    option = '%s=%s' % (field.name, value)
+                options.append(option)
+        return options
 
     def __unicode__(self):
-        return self.name
+        return u"%s = models.%s(%s)" % (self.name, self.field_type, ', '.join(self.get_options()))
 
 class RelationFieldOption(Field):
     """
