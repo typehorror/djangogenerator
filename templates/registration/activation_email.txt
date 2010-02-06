@@ -1,0 +1,14 @@
+{% load i18n %}{% autoescape off %}
+{% trans "You're receiving this e-mail because you requested an account creation" %}
+{% blocktrans %}on {{ site }}{% endblocktrans %}.
+
+{% trans "Please go to the following page to activate your account:" %}
+{% block activation_link %}
+http://{{ site }}{% url registration.backends.default.urls.activate activation_key=activation_key %}
+{% endblock %}
+
+{% trans "Thanks for registering on our site!" %}
+
+{% blocktrans %}The {{ site }} team{% endblocktrans %}
+
+{% endautoescape %}

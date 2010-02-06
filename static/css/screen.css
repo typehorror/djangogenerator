@@ -177,10 +177,10 @@ form span.loading{
 .field_type{
     position:absolute;
     color: #fff;
-    font-size: 3em;
+    font-size: 2em;
     right:0px;
-    margin-top:25px;
-    padding-right:50px;
+    margin-top:30px;
+    right: 50px;
 }
 
 #generate:hover{

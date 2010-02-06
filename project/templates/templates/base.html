@@ -27,23 +27,31 @@
 <!-- wrap -->
 <div id="wrap">
 
-	<!-- header -->
+	<!-- start header -->
 	<div id="header">			
+         {% tag block header %} 
 	
 		<a name="top"></a>
 		
 		<h1 id="logo-text"><a href="/" title="">{{ project.name }}</a></h1>		
+        {% tag endblock header %} 
      </div>
-     {% tag block auth %} 
+	 <!-- end header -->
+     
+     {% if project.has_registration %}
+	 <!-- start auth -->
      <div id="auth">
+         {% tag block auth %} 
         {% tag if user.is_authenticated %}
         hello {% var user.username %} - <a href="{% tag url logout_then_login %}">{% tag trans 'Log Out' %}</a>
         {% tag else %}
 
         <a href="{% tag url django.contrib.auth.views.login %}">{% tag trans 'Log In' %}</a>
         {% tag endif %}
-    {% tag endblock auth %} 
+        {% tag endblock auth %} 
     </div>
+	<!-- end auth -->
+    {% endif %}
     <div id="menu">
     <!-- start menu -->
     {% tag block menu %}

@@ -85,7 +85,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 ROOT_URLCONF = 'urls'
 LOGIN_REDIRECT_URL = '/project/list/'
-LOGIN_URL = '/registration/login/'
+LOGIN_URL = '/accounts/login/'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates'),
@@ -107,4 +107,7 @@ INSTALLED_APPS = (
     'model',
     'field',
     'application',
+    'registration',
+    'django_extensions',
 )
+ACCOUNT_ACTIVATION_DAYS = 7 

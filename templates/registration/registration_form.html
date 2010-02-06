@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block logout %}{% endblock %}
+{% block title %}{% trans 'Register' %}{% endblock %}
+
+{% block content %}
+
+<h2>{% trans 'Register' %}</h2>
+
+
+
+<div class="box_form">
+<form action="" method="post">{% csrf_token %}
+<p>{% trans "Please enter your information bellow to register." %}</p>
+
+{{ form.as_p }}
+<input type="submit" value="{% trans 'Register' %}" class="default" />
+</div>
+<script type="text/javascript">document.getElementById("id_old_password").focus();</script>
+</form>
+</div>
+
+{% endblock %}
