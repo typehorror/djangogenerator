@@ -13,7 +13,7 @@
     <ul class="project_list">
     {% for project in projects.object_list %}
         <li>
-            <a href="#" onclick="alert('Are you sure you want to delete this project')"><img src="{{STATIC_URL}}images/delete.png" width="16" height="16"></a> <a href="{{ project.get_absolute_url }}">{{ project.name }}  created on {{ project.modification_date|date:"l, jS F, Y" }} - {{ project.applications.count }} applications (click to view)</a>
+            <a href="#" onclick="alert('Are you sure you want to delete this project')"><img src="{{STATIC_URL}}img/icons/delete.png" width="16" height="16"></a> <a href="{{ project.get_absolute_url }}">{{ project.name }}  created on {{ project.modification_date|date:"l, jS F, Y" }} - {{ project.applications.count }} applications (click to view)</a>
         </li>
     {% endfor %}
     </ul>
