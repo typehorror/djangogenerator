@@ -131,26 +131,26 @@ form input[type=submit], form input[type=button]{
     -webkit-border-bottom-right-radius: 3px;
     -webkit-border-bottom-left-radius: 9px;
     margin-left: 5px;
-    background: #eee url(../images/accept.png) 2px center no-repeat;
+    background: #eee url(../img/icons/accept.png) 2px center no-repeat;
     padding: 3px 5px 3px 20px;
 }
 
 form input.add{
     border-color: gray;
     padding: 3px 5px 3px 22px;
-    background: url(../images/add.png) no-repeat 3px center #eeeeee;
+    background: url(../img/icons/add.png) no-repeat 3px center #eeeeee;
 }
 
 form input.save{
     border-color: gray;
     padding: 3px 5px 3px 22px;
-    background: url(../images/database_save.png) no-repeat 4px center #eeeeee;
+    background: url(../img/icons/database_save.png) no-repeat 4px center #eeeeee;
 }
 
 form input.delete{
     border-color: #C65353;
     padding: 3px 5px 3px 22px;
-    background: url(../images/delete.png) no-repeat 3px center #ECC6C6;
+    background: url(../img/icons/delete.png) no-repeat 3px center #ECC6C6;
 }
 
 form span.saved{
