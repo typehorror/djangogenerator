@@ -45,6 +45,7 @@ FIELD_FORMS = {
 @login_required
 @transaction.commit_manually
 def model_field_del(request, model_field_id):
+    #FIXME: this should be event driven
     if request.method == 'POST':
         model_field = get_object_or_404(ModelField, model__application__project__owner=request.user, pk=model_field_id)
         field = model_field.object
@@ -63,14 +64,15 @@ def model_field_del(request, model_field_id):
 def model_field_form(request, field_type, model_field_id):
     model_field = get_object_or_404(ModelField, model__application__project__owner=request.user, pk=model_field_id)
     context = {}
+    prefix = "%s_%d" % (model_field.object.field_type,model_field.id)
     if request.method == 'POST':
-        form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, request.POST, prefix="%s_%d" % (model_field.object.field_type,model_field.id), instance=model_field.object)
+        form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, request.POST, prefix=prefix, instance=model_field.object)
         if form.is_valid():
             field = form.save()
-            form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, instance=model_field.object, prefix="%s_%d" % (model_field.object.field_type,model_field.id))
+            form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, instance=model_field.object, prefix=prefix)
             context['saved'] = True
     else:
-        form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, instance=model_field.object, prefix="%s_%d" % (model_field.object.field_type,model_field.id))
+        form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, instance=model_field.object, prefix=prefix)
     context.update({'field_form':form, 
                     'model_field':model_field})
     return render_response(request, 'field_form.html', context)
@@ -81,17 +83,18 @@ def new_model_field_form(request, field_type, model_id):
         raise Http404
     model = get_object_or_404(Model, application__project__owner=request.user, pk=model_id)
     context = {}
+    prefix = "%s_%d" % (field_type,model.id)
     if request.method == 'POST':
-        form = FIELD_FORMS[field_type](model.application.project, request.POST, prefix="%s_%d" % (field_type,model.id))
+        form = FIELD_FORMS[field_type](model.application.project, request.POST, prefix=prefix)
         if form.is_valid():
             new_field = form.save()
             model_field = model.model_fields.create(object=new_field)
-            form = FIELD_FORMS[field_type](model.application.project, instance=new_field, prefix="%s_%d" % (field_type,new_field.id))
+            form = FIELD_FORMS[field_type](model.application.project, instance=new_field, prefix=prefix)
             context = { 'field_form':form, 
                         'model_field': model_field}
             return render_response(request, 'field_form.html', context)
     else:
-        form = FIELD_FORMS[field_type](model.application.project, prefix="%s_%d" % (field_type,model.id))
+        form = FIELD_FORMS[field_type](model.application.project, prefix=prefix)
     context = { 'new_field_form':form, 
                 'model':model, 
                 'field_type':field_type }
