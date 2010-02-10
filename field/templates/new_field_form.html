@@ -28,6 +28,7 @@
         $(this).ajaxSubmit({target: $("#new_field_{{model.id}}").parent()});
         return false;
     });
+    $("#id_{{ field_type }}_{{ model.id }}-name").focus();
     //]]>
 </script>
 
