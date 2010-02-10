@@ -17,19 +17,17 @@ class ModelForm(forms.ModelForm):
                   'db_table',)
 
     def clean_name(self):
+        """
+        ensure that a name get cast to CamelCase
+        "my model name" should become "MyModelName"
+        """
         name = self.cleaned_data["name"]
         name = ''.join([ '%s%s' % (x[0].upper(),x[1:]) for x in name.split(' ') if x ])
         name = slugify(name)
         return name
 
-class NewModelForm(forms.ModelForm):
+class NewModelForm(ModelForm):
     class Meta:
         model = Model
         fields = ('name',)
-
-    def clean_name(self):
-        name = self.cleaned_data["name"]
-        name = ''.join([ '%s%s' % (x[0].upper(),x[1:]) for x in name.split(' ') if x ])
-        name = slugify(name)
-        return name
 
