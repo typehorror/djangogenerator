@@ -37,6 +37,12 @@ class Field(models.Model):
     ignored_options = ('unicode', 'datefield_ptr', 'name', 'id')
     class Meta:
         abstract = True
+
+    @property
+    def model_field(self):
+        field_type = ContentType.objects.get_for_model(self)
+        return ModelField.objects.get(content_type__pk=field_type.id, object_id=self.id)
+
     def get_options(self):
         options = []
         for field in self._meta.fields:
@@ -47,7 +53,9 @@ class Field(models.Model):
                 else:
                     option = '%s=%s' % (field.name, value)
                 if field.name == 'relation':
-                    option = '"%s"' % value
+                    if value == self.model_field.model:
+                        value = 'self'
+                    option = "'%s'" % value
                     options.insert(0,option)
                 else:
                     options.append(option)
