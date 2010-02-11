@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import post_delete
 
 from model.utils import slugify
 
@@ -23,6 +24,15 @@ class ModelField(models.Model):
         except:
             return u'Warning ModelField %d is not has no object link to it' % self.pk
 admin.site.register(ModelField)
+
+def delete_linked_field(sender, instance, **kwargs):
+    """
+    Manage deletion of field link to a ModelField to avoid orphan
+    """
+    instance.object.delete()
+
+post_delete.connect(delete_linked_field, sender=ModelField)
+
 
 class Field(models.Model):
     name = models.CharField(max_length=255)

@@ -13,7 +13,12 @@
     <ul class="project_list">
     {% for project in projects.object_list %}
         <li>
-            <a href="#" onclick="alert('Are you sure you want to delete this project')"><img src="{{STATIC_URL}}img/icons/delete.png" width="16" height="16"></a> <a href="{{ project.get_absolute_url }}">{{ project.name }}  created on {{ project.modification_date|date:"l, jS F, Y" }} - {{ project.applications.count }} applications (click to view)</a>
+            <a href="{% url project_del project.id %}" class="delete_project" onclick="return false;">
+                <img src="{{STATIC_URL}}img/icons/delete.png" width="16" height="16">
+            </a>
+            <a href="{{ project.get_absolute_url }}">
+                {{ project.name }}  created on {{ project.modification_date|date:"l, jS F, Y" }} - {{ project.applications.count }} applications (click to view)
+            </a>
         </li>
     {% endfor %}
     </ul>
@@ -29,5 +34,20 @@
         </p>
     </form>
     </div>
+<script type="text/javascript">
+    // <![CDATA[
+    $('.delete_project').click(function(){
+        var del_object = confirm('Are you sure you want to delete this project ?'); 
+        var link = $(this);
+        if ( del_object == true ){
+            var del_url = $(this).attr('href');
+            $.post(del_url, function(data){ 
+                link.parent('li').slideToggle();
+            });
+        }
+        return false;
+    });
+    // ]]>
+</script>
 {% endblock content %}
 

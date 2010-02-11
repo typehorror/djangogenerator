@@ -1,7 +1,7 @@
 import os
 from tempfile import mktemp
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -18,6 +18,11 @@ from field.models import ModelField
 
 @login_required
 def project_view(request, project_id):
+    """
+    - return project corresponding to project_id
+    - handle project modification form submition
+    - raise 404 if project is not found or project doesn't belong to the current user
+    """
     project = get_object_or_404(Project, owner=request.user, pk=project_id)
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=project)
@@ -32,7 +37,21 @@ def project_view(request, project_id):
     return render_response(request, 'project/project_view.html', context)
 
 @login_required
+def project_del(request, project_id):
+    """
+    Delete a project
+    raise 404 if project doesn't exist or user is not project's owner
+    """
+    project = get_object_or_404(Project, owner=request.user, pk=project_id)
+    project.delete()
+    return HttpResponse("deleted")
+
+@login_required
 def project_list(request):
+    """
+    return projects own by the current user.
+    The result list is paginated
+    """
     context = {}
     projects = Project.objects.filter(owner=request.user)
     if request.method == "POST":
@@ -49,6 +68,9 @@ def project_list(request):
 
 
 def generate(template, output, context={}):
+    """
+    render a template to a file using context dict
+    """
     content = render_to_string(template, context)
     try:
         file = open(output, 'w+')
@@ -59,6 +81,10 @@ def generate(template, output, context={}):
 
 @login_required
 def project_generate(request, project_id):
+    """
+    Generate the whole project in a temp folder,
+    compress it and move the compressed file to media folder.
+    """
     project = get_object_or_404(Project, owner=request.user, pk=project_id)
     context = {'project': project}
     
@@ -164,5 +190,6 @@ def project_generate(request, project_id):
                 generate('application/templates/base.html', os.path.join(templates_folder, '%s_base.html' % model.name.lower()), context)
 
     tgz_filename = '%d_%d.tgz' % (project.id, project.owner.id)
+    #TODO: clean the temp folder using cron
     os.system('cd %s && tar czf %s * && mv %s %s ' % (output_folder, tgz_filename, tgz_filename, settings.MEDIA_ROOT))
     return HttpResponseRedirect('%s%s' % (settings.MEDIA_URL, tgz_filename))
