@@ -1,0 +1,13 @@
+[
+    {
+        "pk": 18, 
+        "model": "form.modelform", 
+        "fields": {
+            "model": 9, 
+            "name": "TestModelForm", 
+            "model_fields": [
+                5
+            ]
+        }
+    }
+]

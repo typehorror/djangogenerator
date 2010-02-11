@@ -1,0 +1,12 @@
+[
+    {
+        "pk": 6, 
+        "model": "application.application", 
+        "fields": {
+            "project": 2, 
+            "name": "test_application", 
+            "modification_date": "2010-02-10 19:48:29", 
+            "creation_date": "2010-02-10 19:48:21"
+        }
+    }
+]
