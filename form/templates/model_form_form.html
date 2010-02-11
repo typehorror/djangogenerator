@@ -1,0 +1,40 @@
+{% for field in model_form_form %}
+<p>
+    {{ field.label_tag }} {{ field }} 
+    {% if field.errors %}
+        <span class="errors">
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
+        </span>
+    {% endif %}
+    {% if forloop.first %}
+        <span class="loading" id="model_form_{{ model_form.id }}_loading"> &nbsp; </span>
+        <input type="submit" value="save form" class="save"/>
+        <input type="button" class="delete" value="delete form" id="model_form_{{ model_form.id }}_delete" />
+    {% if saved %}
+        <span id="model_form_{{ model_form.id }}_saved" class="saved">Saved</span>
+        <script type="text/javascript">
+            // <![CDATA[
+            $('#model_form_{{ model_form.id }}_saved').fadeIn('fast');
+            setTimeout("$('#model_form_{{ model_form.id }}_saved').fadeOut(2000);",1000);
+            // ]]>
+        </script>
+    {% endif %}
+    {% endif %}
+</p>
+{% endfor %}
+
+<script type="text/javascript">
+    // <![CDATA[
+    $("#model_form_{{ model_form.id }}_delete").click(function(){
+        var del_object = confirm('Are you sure you want to delete the form "{{ model_form.name }}" ?'); 
+        if ( del_object == true ){
+            $.post( "{% url model_form_del model_form.id %}", function(data){ 
+                $("#model_form_{{ model_form.id }}").slideToggle(); 
+                });
+            }
+        });
+    // ]]>
+</script>
+

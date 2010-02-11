@@ -1,4 +1,5 @@
 {% load model_tags %}
+{% load form_tags %}
 {% load field_tags %}
 <div class="model" id="model_{{ model.id }}">
 
@@ -6,6 +7,12 @@
         <form id="new_model_field_{{ model.id }}_form" action="" method="post">
             {% new_model_field_form model %}
         </form>
+    </div>
+
+    <div id="new_model_form_{{ model.id }}" class="new_model_form new_form">
+    <form id="new_model_form_{{ model.id }}_form" action="{% url new_model_form_form model.id %}" method="post">
+    	{% new_model_form_form model %}
+	</form>
     </div>
 
     <div class="model_form">
@@ -17,6 +24,15 @@
             {% for model_field in model.model_fields.all %}
                 <li>
                 {% field_form model_field %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div id="model_{{ model.id }}_forms">
+            <ul class="model_forms" id="model_{{ model.id }}_forms_list">
+            {% for model_form in model.model_forms.all %}
+                <li>
+                {% model_form_view model_form %}
                 </li>
             {% endfor %}
             </ul>
@@ -34,6 +50,13 @@
         });
         return false;
     });
+
+    $("#new_model_form_{{ model.id }}_form").submit(function(){
+        $("#new_model_form_{{ model.id }}_loading").css({display:"inline-block"});
+        $(this).ajaxSubmit({target: '#new_model_form_{{ model.id }}_form'});
+        return false;
+    });
+
     $("#model_{{ model.id }}_form").submit(function(){
         $("#model_{{ model.id }}_loading").css({display:"inline-block"});
         $(this).ajaxSubmit({target: '#model_{{ model.id }}_form'});

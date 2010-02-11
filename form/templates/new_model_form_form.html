@@ -1,0 +1,30 @@
+{% for field in new_model_form_form %}
+<p>
+    {{ field.label_tag }} {{ field }} 
+    {% if field.errors %}
+        <span class="errors">
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
+        </span>
+    {% endif %}
+    {% if forloop.first %}
+        <span class="loading" id="new_model_form_{{ model.id }}_loading"> &nbsp; </span>
+        <input type="submit" value="add form" class="add"/>
+    {% if created %}
+        <span id="model_form_{{ model_form.id }}_created" class="saved">Created</span>
+        <script type="text/javascript">
+            // <![CDATA[
+            $('#model_form_{{ model_form.id }}_created').fadeIn('fast');
+			$.get("{% url model_form_view model_form.id %}",function(data){
+				$("#model_{{ model_form.model.id }}_forms_list").append("<li>"+data+"</li>");
+                $('html,body').animate({ scrollTop: $('#id_modelform_{{ model_form.id }}-name').focus().offset().top}, 1000);
+			});
+            setTimeout("$('#model_form_{{ model_form.id }}_created').fadeOut(2000);",1000);
+            // ]]>
+        </script>
+    {% endif %}
+    {% endif %}
+</p>
+{% endfor %}
+

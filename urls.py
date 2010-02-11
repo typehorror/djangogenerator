@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     (r'^model/', include('model.urls')),
     (r'^application/', include('application.urls')),
     (r'^project/', include('project.urls')),
-    #(r'^form/', include('model.urls')),
+    (r'^form/', include('form.urls')),
     #(r'^view/', include('model.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 

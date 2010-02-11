@@ -18,6 +18,7 @@
             $('#model_{{ model.id }}_created').fadeIn('fast');
 			$.get("{% url model_view model.id %}",function(data){
 				$("#application_{{ model.application.id  }}_models_list").append("<li>"+data+"</li>");
+                $('html,body').animate({ scrollTop: $('#id_model_{{ model.id }}_-name').focus().offset().top}, 1000);
 			});
             setTimeout("$('#model_{{ model.id }}_created').fadeOut(2000);",1000);
             // ]]>

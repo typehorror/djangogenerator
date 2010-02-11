@@ -1,0 +1,18 @@
+{% load form_tags %}
+<div class="model_form" id="model_form_{{model_form.id}}">
+    <div class="model_form_form">
+        <form id="model_form_{{ model_form.id }}_form" action="{% url model_form_form model_form.id %}" method="post">
+            {% model_form_form model_form %}
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // <![CDATA[
+    $("#model_form_{{ model_form.id }}_form").submit(function(){
+        $("#model_form_{{ model_form.id }}_loading").css({display:"inline-block"});
+        $(this).ajaxSubmit({target: '#model_form_{{ model_form.id }}_form'});
+        return false;
+    });
+    // ]]>
+</script>

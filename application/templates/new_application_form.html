@@ -18,6 +18,7 @@
             $('#application_{{ application.id }}_created').fadeIn('fast');
 			$.get("{% url application_view application.id %}",function(data){
 				$("#project_{{ application.project.id  }}_applications_list").append("<li>"+data+"</li>");
+                $('html,body').animate({ scrollTop: $('#id_app_{{ application.id  }}_-name').focus().offset().top}, 1000);
 			});
             setTimeout("$('#application_{{ application.id }}_created').fadeOut(2000);",1000);
             // ]]>

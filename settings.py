@@ -106,6 +106,7 @@ INSTALLED_APPS = (
     'project',
     'model',
     'field',
+    'form',
     'application',
     'registration',
     'django_extensions',

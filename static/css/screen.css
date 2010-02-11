@@ -69,6 +69,12 @@ li{
     float: right;
 }
 
+.new_model_form{
+    position: absolute;
+    right: 25px;
+    margin-top: 90px;
+}
+
 .new_model_field{
     position: absolute;
     right: 25px;
@@ -79,6 +85,16 @@ li{
     position: absolute;
     right: 15px;
     margin-top: 40px;
+}
+
+.model_forms li div.model_form{
+    border: 1px solid lightgray;
+    background-color: #ded;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 10px;
+    margin: 5px;
+    padding: 5px;
 }
 
 .field{
