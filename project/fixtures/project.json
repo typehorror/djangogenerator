@@ -1,0 +1,15 @@
+[
+    {
+        "pk": 2, 
+        "model": "project.project", 
+        "fields": {
+            "name": "test project", 
+            "modification_date": "2010-02-10 19:48:15", 
+            "has_profile": 0, 
+            "creation_date": "2010-02-10 19:48:15", 
+            "has_registration": 0, 
+            "owner": 2, 
+            "description": ""
+        }
+    }
+]
