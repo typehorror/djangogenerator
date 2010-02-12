@@ -30,7 +30,7 @@ class ModelFormForm(forms.ModelForm):
 
         if not (self.instance and self.instance.name == name ):
             if ModelForm.objects.filter(name=name, model__application=self.model.application):
-               raise ValidationError('%s is already in used in this application' % name)
+               raise ValidationError('%s is already in use in this application' % name)
 
         return name
 

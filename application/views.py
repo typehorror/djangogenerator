@@ -29,13 +29,13 @@ def application_form(request, application_id):
     application = get_object_or_404(Application, project__owner=request.user, pk=application_id)
     context = {}
     if request.method == "POST":
-        form = ApplicationForm(request.POST, instance=application, prefix='app_%d_' % application.id)
+        form = ApplicationForm(application.project, request.POST, instance=application, prefix='app_%d_' % application.id)
         if form.is_valid():
             application = form.save()
             context['saved'] = True
-            form = ApplicationForm(instance=application, prefix='app_%d_' % application.id)
+            form = ApplicationForm(application.project, instance=application, prefix='app_%d_' % application.id)
     else:
-        form = ApplicationForm(instance=application, prefix='app_%d_' % application.id)
+        form = ApplicationForm(application.project, instance=application, prefix='app_%d_' % application.id)
     context.update({'application_form': form,
                     'application': application})
     return render_response(request, 'application_form.html', context)
@@ -46,16 +46,16 @@ def new_application_form(request, project_id):
     project = get_object_or_404(Project, owner=request.user, pk=project_id)
     context = {}
     if request.method == 'POST':
-        form = NewApplicationForm(request.POST, prefix="new_application_")
+        form = NewApplicationForm(project, request.POST, prefix="new_application_")
         if form.is_valid():
             context['created'] = True
             new_application = form.save(commit=False)
             new_application.project = project
             new_application.save()
             context['application'] = new_application
-            form = NewApplicationForm(prefix="new_application_")
+            form = NewApplicationForm(project, prefix="new_application_")
     else:
-        form = NewApplicationForm(prefix="new_application_")
+        form = NewApplicationForm(project, prefix="new_application_")
     context.update({'new_application_form': form, 'project': project})
     return render_response(request, 'new_application_form.html', context)
 

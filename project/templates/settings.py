@@ -4,6 +4,8 @@ import os
 try:
     from settings_local import *
 except ImportError:
+    # You can copy and past this indented block in a file called setting_local and 
+    # customized it in case you want to separate sensible data from your repository
     DEBUG = True
     ADMINS = (
         # ('Your Name', 'your_email@domain.com'),

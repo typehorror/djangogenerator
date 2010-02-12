@@ -14,11 +14,7 @@ class ProjectTest(TestCase):
     username = 'username'
     password = 'password'
     email = 'username@example.com'
-    project_name = 'project_name'
-    application_name = 'application_name'
-    model_name = 'model_name'
-    field_type = 'CharField'
-    field_name = 'myCharField'
+    project_name = 'my project'
 
     def setUp(self):
         self.client = Client()
@@ -56,7 +52,7 @@ class ProjectTest(TestCase):
         self.connect_user()
 
         # make sure the user just have 1 project
-        projects = Project.objects.filter()
+        projects = Project.objects.filter(owner__username=self.username)
         self.assertTrue(projects.count() == 1L, 
             'user "username" must have only one project in fixture project.json')
 
