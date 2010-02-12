@@ -21,6 +21,17 @@ class ProjectTest(TestCase):
 
     def connect_user(self):
         self.client.login(username=self.username, password=self.password)
+    
+    def test_project_detail_view(self):
+        project = Project.objects.get(name='test project')
+        view_project_detail_url = reverse('project_view', kwargs={'project_id': project.id})
+
+        self.connect_user()
+        response = self.client.get(view_project_detail_url)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        
 
     def test_project_list_view(self):
         from forms import NewProjectForm
