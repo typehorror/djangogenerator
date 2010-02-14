@@ -5,7 +5,7 @@ class ModelAdmin(admin.ModelAdmin):
     """
     Model admin page
     """
-    search_fields = ('name', 'application')
+    search_fields = ('name', 'application', 'application__project')
     list_filter = ('creation_date','modification_date')
     list_display = ('id', 'name', 'application', 'creation_date','modification_date')
 
