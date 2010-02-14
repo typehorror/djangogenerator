@@ -23,7 +23,10 @@ def project_view(request, project_id):
     - handle project modification form submition
     - raise 404 if project is not found or project doesn't belong to the current user
     """
-    project = get_object_or_404(Project, owner=request.user, pk=project_id)
+    if request.user.is_superuser:
+        project = get_object_or_404(Project, pk=project_id)
+    else:
+        project = get_object_or_404(Project, owner=request.user, pk=project_id)
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
