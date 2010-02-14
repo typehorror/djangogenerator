@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block logout %}{% endblock %}
+
+{% block title %}{% trans 'Wrong activation key' %}{% endblock %}
+
+{% block content %}
+
+<h2>{% trans 'Your activation key is wrong' %}</h2>
+
+<div class="box_form">
+<p>{% trans "Your key is wrong or outdated. Please register again to receive a valid activation key." %}</p>
+
+<p> <a href="{% url registration_register %}">{% trans 'Register' %}</a>
+</div>
+{% endblock %}
+
