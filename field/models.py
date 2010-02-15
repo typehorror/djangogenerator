@@ -59,7 +59,7 @@ class Field(models.Model):
             if field.name not in self.ignored_options and self.__getattribute__(field.name):
                 value = self.__getattribute__(field.name)
                 if isinstance(value, (unicode, str)) :
-                    option = '%s="%s"' % (field.name, value)
+                    option = '%s="%s"' % (field.name, value.replace('"',"\\\""))
                 else:
                     option = '%s=%s' % (field.name, value)
                 if field.name == 'relation':
