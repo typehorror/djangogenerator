@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
@@ -59,6 +60,48 @@ class ProjectTest(TestCase):
         # check that the object is contain in the response
         self.assertTrue(projects[0] in response.context['projects'].object_list)
 
+    def test_project_generate(self):
+        self.connect_user()
+        # make sure the user just have 1 project
+        projects = Project.objects.filter(owner__username=self.username)
+        project = projects[0]
+
+        generate_project_url = reverse('project_generate', kwargs={'project_id':project.id})
+        response = self.client.post(generate_project_url)
+
+        models = Model.objects.filter(application__project=project)
+        model = models[0]
+        self.insert_field(model, max_length=255, help_text = u'\xf6 in unicode')
+        model.save()
+
+        # ensure it's working using a field with an unicode name
+        generate_project_url = reverse('project_generate', kwargs={'project_id':project.id})
+        response = self.client.post(generate_project_url)
+
+    def insert_field(self, model, name='test_field', field_type='CharField', **options):
+        """
+        insert a new CharField in the model using a url view call
+        return a model_field containing the field as model_field.object
+        options are passed to the creation view and used to generate the field.
+        """
+        options.update({'name':name})
+        new_model_field_url = reverse('new_model_field_form', kwargs={'field_type': field_type, 'model_id':model.id})
+
+        # get the form prefix
+        response = self.client.post(new_model_field_url)
+        prefix = response.context['new_field_form'].prefix
+        
+        # Add the prefix to the options passed to the form
+        options = dict([ ('%s-%s' % (prefix,name), value) for name, value in options.items() ])
+
+        # create the field
+        response = self.client.post(new_model_field_url, options)
+        self.assertTrue(response.context.has_key('model_field'),
+            'Field creation failed with options %s' % options)
+
+        # get the last created model field
+        return response.context['model_field']
+
     def test_project_del(self):
         self.connect_user()
 
@@ -73,13 +116,7 @@ class ProjectTest(TestCase):
         form_ids = ModelForm.objects.filter(model__application__project = project).values_list('id', flat=True)
 
         # lets insert a field into the project
-        model = Model.objects.filter(application__project=project)[0]
-        new_model_field_url = reverse('new_model_field_form', kwargs={'field_type':'CharField', 'model_id':model.id})
-        prefix = 'CharField_%d-' % model.id
-        response = self.client.post(new_model_field_url, {'%sname' % prefix :'test_field', '%smax_length' % prefix :255})
-        self.assertEqual(response.status_code, 200,
-            'The field creation using the view call (%s) did not behavior has expected (verify the prefix).' % new_model_field_url)
-        model_field = model.model_fields.all()[0]
+        model_field = self.insert_field(Model.objects.filter(application__project=project)[0], max_length=255)
         field = model_field.object
 
         # call delete function
