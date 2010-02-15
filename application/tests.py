@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from project.models import Project
 from application.models import Application
 
-class ProjectTest(TestCase):
+class ApplicationTest(TestCase):
     fixtures = ['user', 'project', 'application', 'model', 'form']
     username = 'username'
     password = 'password'
@@ -31,15 +31,19 @@ class ProjectTest(TestCase):
         project = Project.objects.get(owner__username=self.username)
         application = project.applications.all()[0]
 
-        create_project_url = reverse('new_application_form', kwargs={'project_id': project.id})
+        create_application_url = reverse('new_application_form', kwargs={'project_id': project.id})
         self.connect_user()
-        response = self.client.post(create_project_url, {'new_application_-name':application.name})
+        # get the prefix
+        response = self.client.post(create_application_url)
+        prefix = response.context['new_application_form'].prefix
+        post_opts = {'%s-name' % prefix : application.name}
+
+        response = self.client.post(create_application_url, post_opts)
 
         # check response
         self.failUnlessEqual(response.status_code, 200)
 
         # check the error presence
-
         self.assertEquals(Application.objects.filter(project=project).count(), 1L,
             'The view must not accept to create two applicationis with the same name in the same project')
 
@@ -48,13 +52,27 @@ class ProjectTest(TestCase):
                             'name',
                             '%s is already in use in this project' % application.name)
 
+    def test_application_view(self):
+        self.connect_user()
+        application = Application.objects.get(name='test_application')
+        view_application_url = reverse('application_view', kwargs={'application_id': application.id})
+        response = self.client.get(view_application_url)
+
+        # check response
+        self.failUnlessEqual(response.status_code, 200)
         
 
     def test_application_creation(self):
         self.connect_user()
         project = Project.objects.get(name=self.project_name)
-        create_project_url = reverse('new_application_form', kwargs={'project_id': project.id})
-        response = self.client.post(create_project_url, {'new_application_-name':self.application_name})
+        create_application_url = reverse('new_application_form', kwargs={'project_id': project.id})
+
+        # get the prefix
+        response = self.client.post(create_application_url)
+        prefix = response.context['new_application_form'].prefix
+        post_opts = {'%s-name' % prefix : self.application_name}
+
+        response = self.client.post(create_application_url, post_opts)
 
         # check response
         self.failUnlessEqual(response.status_code, 200)
@@ -71,8 +89,13 @@ class ProjectTest(TestCase):
         self.connect_user()
         project = Project.objects.get(name=self.project_name)
         create_application_url = reverse('new_application_form', kwargs={'project_id': project.id})
+        # get the prefix
+        response = self.client.post(create_application_url)
+        prefix = response.context['new_application_form'].prefix
+
         for name, casted in name_collection.items():
-            response = self.client.post(create_application_url, {'new_application_-name': name})
+            post_opts = {'%s-name' % prefix : name}
+            response = self.client.post(create_application_url, post_opts)
             # check response
             self.failUnlessEqual(response.status_code, 200)
             self.assertTrue(Application.objects.filter(name=casted).count() == 1,
