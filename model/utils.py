@@ -8,4 +8,6 @@ def slugify(value):
     """
     slug = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
     slug = unicode(re.sub('[^\w\s-]', '', slug).strip())
+    # remove name starting with number
+    slug = re.sub('^\d+', '', slug)
     return re.sub('[-\s]+', '_', slug)

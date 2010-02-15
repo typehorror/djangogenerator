@@ -46,16 +46,16 @@ def new_model_form(request, application_id):
     application = get_object_or_404(Application, project__owner=request.user, pk=application_id)
     context = {}
     if request.method == 'POST':
-        form = NewModelForm(request.POST, prefix="new_model_%d" % application.id)
+        form = NewModelForm(request.POST, application=application, prefix="new_model_%d" % application.id)
         if form.is_valid():
             context['created'] = True
             new_model = form.save(commit=False)
             new_model.application = application
             new_model.save()
             context['model']=new_model
-            form = NewModelForm(prefix="new_model_%d" % application.id)
+            form = NewModelForm(application=application, prefix="new_model_%d" % application.id)
     else:
-        form = NewModelForm(prefix="new_model_%d" % application.id)
+        form = NewModelForm(application=application, prefix="new_model_%d" % application.id)
     context.update({'new_model_form': form, 'application': application})
     return render_response(request, 'new_model_form.html', context)
 

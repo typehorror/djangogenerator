@@ -15,6 +15,6 @@ def model_form(model):
 
 @register.inclusion_tag('new_model_form.html')
 def new_model_form(application):
-    form = NewModelForm(prefix="new_model_%d" % application.id)
+    form = NewModelForm(application=application, prefix="new_model_%d" % application.id)
     return {'new_model_form': form, 'application': application}
 
