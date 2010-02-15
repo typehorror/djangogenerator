@@ -79,7 +79,7 @@ def generate(template, output, context={}):
         file = open(output, 'w+')
     except IOError:
         import pdb; pdb.set_trace()
-    file.write(content)
+    file.write(content.encode('utf-8'))
     file.close()
 
 @login_required
