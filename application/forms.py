@@ -16,6 +16,7 @@ class ApplicationForm(forms.ModelForm):
 
     def clean_name(self):
         name = slugify(self.cleaned_data["name"])
+        name = name.lower()
 
         if not (self.instance and self.instance.name == name ):
             if Application.objects.filter(name=name, project=self.project):

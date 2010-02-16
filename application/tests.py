@@ -98,5 +98,6 @@ class ApplicationTest(TestCase):
             response = self.client.post(create_application_url, post_opts)
             # check response
             self.failUnlessEqual(response.status_code, 200)
-            self.assertTrue(Application.objects.filter(name=casted).count() == 1,
-                'Error application name casting ("%s")' % name)
+            application = response.context['application']
+            self.assertTrue(application.name == casted,
+                'Error application name casting ("%s!=%s")' % (casted, application.name))
