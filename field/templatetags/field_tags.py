@@ -13,7 +13,7 @@ def new_model_field_form(model):
 
 @register.inclusion_tag('field_form.html')
 def field_form(model_field):
-    form = FIELD_FORMS[model_field.object.field_type](project=model_field.model.application.project, instance=model_field.object, prefix="%s_%d" % (model_field.object.field_type,model_field.id))
+    form = FIELD_FORMS[model_field.object.field_type](model=model_field.model, instance=model_field.object, prefix="%s_%d" % (model_field.object.field_type,model_field.id))
     return {'field_form':form,
             'model_field': model_field}
             

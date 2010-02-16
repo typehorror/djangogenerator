@@ -1,6 +1,7 @@
 from django import forms
 from model.utils import slugify
 from model.models import Model
+from django.core.exceptions import ValidationError
 
 from models import *
 
@@ -37,14 +38,22 @@ class NewModelFieldForm(forms.Form):
     type = forms.ChoiceField(choices=FIELD_CHOICES)
 
 class FieldForm(forms.ModelForm):
-    def __init__(self, project, *args, **kwargs):
+    def __init__(self, model, *args, **kwargs):
         super(FieldForm, self).__init__(*args, **kwargs)
         if 'relation' in self.fields:
-            self.fields['relation'].queryset = Model.objects.filter(application__project=project)
+            self.fields['relation'].queryset = Model.objects.filter(application__project=model.application.project)
+        self.model = model
 
     def clean_name(self):
         name = self.cleaned_data["name"]
         name = slugify(name).lower()
+
+        if not (self.instance and self.instance.name == name ):
+            for model_field in ModelField.objects.filter(model=self.model).select_related():
+                # first test ensure name has been changed. 
+                # So it should not exist on any other object in this model.
+                if model_field.object.name == name:
+                    raise ValidationError('%s is already in use in this model' % name)
         return name
 
 class TextFieldForm(FieldForm):

@@ -66,13 +66,13 @@ def model_field_form(request, field_type, model_field_id):
     context = {}
     prefix = "%s_%d" % (model_field.object.field_type,model_field.id)
     if request.method == 'POST':
-        form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, request.POST, prefix=prefix, instance=model_field.object)
+        form = FIELD_FORMS[model_field.object.field_type](model_field.model, request.POST, prefix=prefix, instance=model_field.object)
         if form.is_valid():
             field = form.save()
-            form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, instance=model_field.object, prefix=prefix)
+            form = FIELD_FORMS[model_field.object.field_type](model_field.model, instance=model_field.object, prefix=prefix)
             context['saved'] = True
     else:
-        form = FIELD_FORMS[model_field.object.field_type](model_field.model.application.project, instance=model_field.object, prefix=prefix)
+        form = FIELD_FORMS[model_field.object.field_type](model_field.model, instance=model_field.object, prefix=prefix)
     context.update({'field_form':form, 
                     'model_field':model_field})
     return render_response(request, 'field_form.html', context)
@@ -85,16 +85,16 @@ def new_model_field_form(request, field_type, model_id):
     context = {}
     prefix = "%s_%d" % (field_type,model.id)
     if request.method == 'POST':
-        form = FIELD_FORMS[field_type](model.application.project, request.POST, prefix=prefix)
+        form = FIELD_FORMS[field_type](model, request.POST, prefix=prefix)
         if form.is_valid():
             new_field = form.save()
             model_field = model.model_fields.create(object=new_field)
-            form = FIELD_FORMS[field_type](model.application.project, instance=new_field, prefix=prefix)
+            form = FIELD_FORMS[field_type](model, instance=new_field, prefix=prefix)
             context = { 'field_form':form, 
                         'model_field': model_field}
             return render_response(request, 'field_form.html', context)
     else:
-        form = FIELD_FORMS[field_type](model.application.project, prefix=prefix)
+        form = FIELD_FORMS[field_type](model, prefix=prefix)
     context = { 'new_field_form':form, 
                 'model':model, 
                 'field_type':field_type }
