@@ -58,8 +58,8 @@ class Field(models.Model):
         for field in self._meta.fields:
             if field.name not in self.ignored_options and self.__getattribute__(field.name):
                 value = self.__getattribute__(field.name)
-                if isinstance(value, (unicode, str)) :
-                    option = '%s="%s"' % (field.name, value.replace('"',"\\\""))
+                if isinstance(value, (unicode, str)):
+                    option = '%s="%s"' % (field.name, value.replace('"',r'\"'))
                 else:
                     option = '%s=%s' % (field.name, value)
                 if field.name == 'relation':
@@ -67,6 +67,9 @@ class Field(models.Model):
                         value = 'self'
                     option = "'%s'" % value
                     options.insert(0,option)
+                elif field.name == 'choices':
+                    choices = ['("%s","%s")' % (choice.strip().replace('"',r'\"'),choice.strip().replace('"',r'\"')) for choice in value.split(',')]
+                    options.append('choices=(%s)' % ','.join(choices))
                 else:
                     options.append(option)
         return options

@@ -9,8 +9,8 @@ except ImportError:
         # ('Your Name', 'your_email@domain.com'),
     )
 
-    DATABASE_ENGINE = ''           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-    DATABASE_NAME = ''             # Or path to database file if using sqlite3.
+    DATABASE_ENGINE = 'sqlite3'    # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+    DATABASE_NAME = 'dg.db'        # Or path to database file if using sqlite3.
     DATABASE_USER = ''             # Not used with sqlite3.
     DATABASE_PASSWORD = ''         # Not used with sqlite3.
     DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -71,7 +71,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'djangodblog.middleware.DBLogMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -101,7 +100,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'djangodblog',
     'common',
     'project',
     'model',

@@ -65,6 +65,30 @@ class FieldTest(TestCase):
         # check response
         self.failUnlessEqual(response.status_code, 200)
         
+    def test_choices_field(self):
+        """
+        Test choice casting
+        """
+        self.connect_user()
+
+        choices = (
+                    ('option 1, option 2, another option',
+                     '(("option 1","option 1"),("option 2","option 2"),("another option","another option"))'),
+                    ('option "here"',
+                    '(("option \\\"here\\\"","option \\\"here\\\""))'),
+                    ('option',
+                     '(("option","option"))'),
+                  )
+        model = Model.objects.all()[0]
+        for (choices_input, choices_output) in choices:
+            response = self.insert_field(model, max_length=255, field_type='CharField', name='choice_field', choices=choices_input)
+            self.failUnlessEqual(response.status_code, 200)
+            model_field = response.context['model_field']
+            choices_option = u'choices=%s' % choices_output
+            self.assertTrue(choices_option in model_field.object.get_options(),
+                '%s not found in %s' % (choices_option, model_field.object.get_options()))
+            model_field.delete()
+
     def test_field_name_is_unique(self):
         """
         It is not possible to create two fields with the same name 
