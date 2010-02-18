@@ -33,6 +33,19 @@ class ProjectTest(TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         
+    def test_project_delete(self):
+        project = Project.objects.get(name='test project')
+        delete_project_url = reverse('project_del', kwargs={'project_id': project.id})
+
+        self.connect_user()
+        response = self.client.post(delete_project_url)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # check that object doesn't exist anymore
+        self.assertEqual(Project.objects.filter(pk=project.id).count(), 0L)
+        
 
     def test_project_list_view(self):
         from forms import NewProjectForm
