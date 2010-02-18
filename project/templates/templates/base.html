@@ -61,7 +61,7 @@
     {% if model.has_read_only_view or model.has_form_view %}
     <li>
         <a href="{% templatetag openblock %} url {{ application.name }}_{{ model.name.lower }}_list {% templatetag closeblock %}">{{ model.name }}</a>
-    <li>
+    </li>
     {% endif %}
     {% endfor %}
     {% endfor %}
