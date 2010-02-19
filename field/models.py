@@ -44,7 +44,7 @@ class Field(models.Model):
     unique = models.BooleanField(default=False)
     verbose_name = models.CharField(max_length=255, blank=True)
     
-    ignored_options = ('unicode', 'datefield_ptr', 'name', 'id')
+    ignored_options = ('unicode', 'filefield_ptr', 'datefield_ptr', 'name', 'id')
     class Meta:
         abstract = True
 
