@@ -33,6 +33,37 @@ class ProjectTest(TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         
+    def test_project_name_is_unique(self):
+        """
+        It is not possible to create two project with the same name
+        and same user
+        """
+        project = Project.objects.get(owner__username=self.username)
+
+        create_project_url = reverse('project_list')#, kwargs={'project_name': project.name})
+        self.connect_user()
+        # get the prefix
+        response = self.client.post(create_project_url)
+        prefix = response.context['new_project_form'].prefix
+        if prefix:
+            post_opts = {'%s-name' % prefix : project.name}
+        else:
+            post_opts = {'name' : project.name}
+
+        response = self.client.post(create_project_url, post_opts)
+
+        # check response
+        self.failUnlessEqual(response.status_code, 200)
+
+        # check the error presence
+        self.assertEquals(Project.objects.filter(name=project.name).count(), 1L,
+            'The view must not accept to create two projects with the same name and same owner')
+
+        self.assertFormError(response, 
+                            'new_project_form',
+                            'name',
+                            '%s already exists' % project.name)
+
     def test_project_delete(self):
         project = Project.objects.get(name='test project')
         delete_project_url = reverse('project_del', kwargs={'project_id': project.id})
@@ -57,7 +88,7 @@ class ProjectTest(TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         # Check response contains a form
-        self.assertEqual(response.context['new_project_form'].as_p(), NewProjectForm().as_p()) 
+        self.assertEqual(response.context['new_project_form'].as_p(), NewProjectForm(owner=response.context['user']).as_p()) 
 
     def test_project_creation(self):
         self.connect_user()

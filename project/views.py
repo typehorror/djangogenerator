@@ -58,13 +58,13 @@ def project_list(request):
     context = {}
     projects = Project.objects.filter(owner=request.user)
     if request.method == "POST":
-        form = NewProjectForm(request.POST)
+        form = NewProjectForm(request.POST, owner=request.user)
         if form.is_valid():
             new_project = form.save(commit=False)
             new_project.owner = request.user
             new_project.save()
     else:
-        form = NewProjectForm()
+        form = NewProjectForm(owner=request.user)
     context['projects'] = paginate(projects, request)
     context['new_project_form'] = form
     return render_response(request, 'project/project_list.html', context) 
