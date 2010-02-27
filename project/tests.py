@@ -42,27 +42,26 @@ class ProjectTest(TestCase):
 
         create_project_url = reverse('project_list')#, kwargs={'project_name': project.name})
         self.connect_user()
-        # get the prefix
-        response = self.client.post(create_project_url)
-        prefix = response.context['new_project_form'].prefix
-        if prefix:
-            post_opts = {'%s-name' % prefix : project.name}
-        else:
-            post_opts = {'name' : project.name}
 
-        response = self.client.post(create_project_url, post_opts)
+        post_opts_list = [ {'name' : project.name},
+                           {'name' : ' %s' % project.name},
+                           {'name' : '%s ' % project.name},
+                           {'name' : '    %s     ' % project.name},
+                           ]
+        for post_opts in post_opts_list:
+            response = self.client.post(create_project_url, post_opts)
 
-        # check response
-        self.failUnlessEqual(response.status_code, 200)
+            # check response
+            self.failUnlessEqual(response.status_code, 200)
 
-        # check the error presence
-        self.assertEquals(Project.objects.filter(name=project.name).count(), 1L,
-            'The view must not accept to create two projects with the same name and same owner')
+            # check the error presence
+            self.assertEquals(Project.objects.filter(name=project.name).count(), 1L,
+                'The view must not accept to create two projects with the same name and same owner')
 
-        self.assertFormError(response, 
-                            'new_project_form',
-                            'name',
-                            '%s already exists' % project.name)
+            self.assertFormError(response, 
+                                'new_project_form',
+                                'name',
+                                '%s already exists' % project.name)
 
     def test_project_delete(self):
         project = Project.objects.get(name='test project')

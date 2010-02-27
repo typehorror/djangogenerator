@@ -22,7 +22,7 @@ class ProjectForm(forms.ModelForm):
                   'has_profile')
 
     def clean_name(self):
-        name = self.cleaned_data["name"]
+        name = self.cleaned_data["name"].strip()
 
         if not (self.instance and self.instance.name == name ):
             if Project.objects.filter(name=name, owner=self.owner):
