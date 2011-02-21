@@ -192,7 +192,7 @@ form span.loading{
 
 .field_type{
     position:absolute;
-    color: #fff;
+    color: #999;
     font-size: 2em;
     right:0px;
     margin-top:30px;
