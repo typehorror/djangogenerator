@@ -86,6 +86,11 @@ class RelationFieldOption(Field):
     class Meta:
         abstract = True
 
+class OneToOneField(RelationFieldOption):
+    form = 'OnoToOneFiedForm'
+    field_type = 'OneToOneField'
+admin.site.register(OneToOneField)
+
 class ForeignKeyField(RelationFieldOption):
     form = 'ForeignKeyFiedForm'
     field_type = 'ForeignKey'
