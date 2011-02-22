@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.conf.urls.defaults import *  
 
 urlpatterns = patterns('{{ application.name }}.views',{% for model in application.models.all %}

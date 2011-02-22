@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 {% if application.project.profile in application.models.all %}from django.contrib.auth.models import User
 from django.db.models.signals import post_save
