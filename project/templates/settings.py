@@ -4,7 +4,7 @@ import os
 try:
     from settings_local import *
 except ImportError:
-    # You can copy and past this indented block in a file called setting_local and 
+    # You can copy and past this indented block in a file called setting_local.py and 
     # customized it in case you want to separate sensible data from your repository
     DEBUG = True
     ADMINS = (
@@ -80,10 +80,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 ROOT_URLCONF = 'urls'
-{% if project.has_registration %}
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/registration/login/'
-{% endif %}
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates'),
@@ -91,6 +87,8 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+{% if project.profile %}
+AUTH_PROFILE_MODULE = "{{ project.profile }}"{% endif %}
 
 INSTALLED_APPS = (
     'django.contrib.auth',

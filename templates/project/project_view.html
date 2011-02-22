@@ -18,6 +18,7 @@
         <input type="submit" value="Save project" class="save"/>
         </p>
         {{ project_form.as_p }}
+        <p>Picking a profile will add a OneToOne field to the model in order to extend the django User class</p>
     </form>
     </div>
     <div class="applications" id="project_{{ project.id }}_applications">

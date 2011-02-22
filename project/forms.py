@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from models import Project
+from model.models import Model
 
 class ProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -13,13 +14,15 @@ class ProjectForm(forms.ModelForm):
         else:
           raise TypeError, 'owner is unknow'
         super(ProjectForm, self).__init__(*args, **kwargs)
+        if 'instance' in kwargs:
+          self.fields['profile'].queryset = Model.objects.filter(application__project=kwargs['instance'])
+
 
     class Meta:
         model = Project
         fields = ('name',
                   'description',
-                  'has_registration',
-                  'has_profile')
+                  'profile',)
 
     def clean_name(self):
         name = self.cleaned_data["name"].strip()

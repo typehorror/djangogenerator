@@ -7,11 +7,10 @@ class Project(models.Model):
     description = models.TextField(blank=True)
     owner = models.ForeignKey(User, related_name="projects")
 
-    has_registration = models.BooleanField(default=False)
-    has_profile = models.BooleanField(default=False)
-
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True, auto_now_add=True)
+
+    profile = models.OneToOneField('model.Model')
 
     def __unicode__(self):
         return self.name
@@ -23,4 +22,3 @@ class Project(models.Model):
     class Meta:
         unique_together = (('owner','name'),)
 
-    

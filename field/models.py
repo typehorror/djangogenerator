@@ -43,6 +43,7 @@ class Field(models.Model):
     primary_key = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#primary-key')
     unique = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#unique')
     verbose_name = models.CharField(max_length=255, blank=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#verbose-name')
+    db_index = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#db-index')
     
     ignored_options = ('unicode', 'filefield_ptr', 'datefield_ptr', 'name', 'id')
     class Meta:
