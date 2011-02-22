@@ -10,7 +10,7 @@ class Project(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True, auto_now_add=True)
 
-    profile = models.OneToOneField('model.Model')
+    profile = models.ForeignKey('model.Model', unique=True, blank=True, null=True)
 
     def __unicode__(self):
         return self.name
