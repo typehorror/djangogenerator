@@ -4,6 +4,7 @@ from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_delete
+from django.utils.safestring import mark_safe
 
 from model.utils import slugify
 
@@ -33,16 +34,15 @@ def delete_linked_field(sender, instance, **kwargs):
 
 post_delete.connect(delete_linked_field, sender=ModelField)
 
-
 class Field(models.Model):
     name = models.CharField(max_length=255)
-    null = models.BooleanField(default=False)
-    blank = models.BooleanField(default=False)
-    default = models.CharField(max_length=255, blank=True)
-    help_text = models.CharField(max_length=255, blank=True)
-    primary_key = models.BooleanField(default=False)
-    unique = models.BooleanField(default=False)
-    verbose_name = models.CharField(max_length=255, blank=True)
+    null = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#null')
+    blank = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#blank')
+    default = models.CharField(max_length=255, blank=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#default')
+    help_text = models.CharField(max_length=255, blank=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#primary-key')
+    primary_key = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#primary-key')
+    unique = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#unique')
+    verbose_name = models.CharField(max_length=255, blank=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#verbose-name')
     
     ignored_options = ('unicode', 'filefield_ptr', 'datefield_ptr', 'name', 'id')
     class Meta:
@@ -81,7 +81,7 @@ class RelationFieldOption(Field):
     """
     Options that belongs to relation fields
     """
-    related_name = models.CharField(max_length=255, blank=True)
+    related_name = models.CharField(max_length=255, blank=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.ForeignKey.related_name')
     relation = models.ForeignKey('model.Model')
     class Meta:
         abstract = True
@@ -107,8 +107,8 @@ admin.site.register(ManyToManyField)
 class CharField(Field):
     # indicate if this field will be returned by the the __unicode__ method
     unicode = models.BooleanField(default=False)
-    choices = models.TextField(blank=True)
-    max_length = models.PositiveSmallIntegerField(default=255)
+    choices = models.TextField(blank=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#choices')
+    max_length = models.PositiveSmallIntegerField(default=255, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.CharField.max_length')
     form = 'CharFieldForm'
     field_type = 'CharField'
 admin.site.register(CharField)
@@ -135,14 +135,14 @@ class BooleanField(Field):
 admin.site.register(BooleanField)
 
 class CommaSeparatedIntegerField(Field):
-    max_length = models.PositiveSmallIntegerField(default=255)
+    max_length = models.PositiveSmallIntegerField(default=255, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.CharField.max_length')
     form = 'CommaSeparatedIntegerFieldForm'
     field_type = 'CommaSeparatedIntegerField'
 admin.site.register(CommaSeparatedIntegerField)
 
 class DateField(Field):
-    auto_now = models.BooleanField(default=False)
-    auto_now_add = models.BooleanField(default=False)
+    auto_now = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.DateField.auto_now')
+    auto_now_add = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.DateField.auto_now_add')
     form = 'DateFieldForm'
     field_type = 'DateField'
 admin.site.register(DateField)
@@ -153,29 +153,29 @@ class DateTimeField(DateField):
 admin.site.register(DateTimeField)
 
 class DecimalField(Field):
-    max_digits = models.PositiveSmallIntegerField(default=5)
-    decimal_places = models.PositiveSmallIntegerField(default=2)
+    max_digits = models.PositiveSmallIntegerField(default=5, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.DecimalField.max_digits')
+    decimal_places = models.PositiveSmallIntegerField(default=2, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.DecimalField.decimal_places')
     form = 'DecimalFieldForm'
     field_type = 'DecimalField'
 admin.site.register(DecimalField)
 
 class EmailField(Field):
-    max_length = models.PositiveSmallIntegerField(default=75)
+    max_length = models.PositiveSmallIntegerField(default=75, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.CharField.max_length')
     form = 'EmailFieldForm'
     field_type = 'EmailField'
 admin.site.register(EmailField)
 
 class FileField(Field):
-    max_length = models.PositiveSmallIntegerField(default=100)
-    upload_to = models.CharField(max_length=255)
+    max_length = models.PositiveSmallIntegerField(default=100, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.CharField.max_length')
+    upload_to = models.CharField(max_length=255, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.FileField.upload_to')
     form = 'FileFieldForm'
     field_type = 'FileField'
 admin.site.register(FileField)
 
 class FilePathField(Field):
-    path = models.CharField(max_length=255)
-    match = models.CharField(max_length=255)
-    recursive = models.BooleanField(default=False)
+    path = models.CharField(max_length=255, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.FilePathField.path')
+    match = models.CharField(max_length=255, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.FilePathField.match')
+    recursive = models.BooleanField(default=False, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.FilePathField.recursive')
     form = 'FilePathFieldForm'
     field_type = 'FilePathField'
 admin.site.register(FilePathField)
@@ -186,8 +186,8 @@ class FloatField(Field):
 admin.site.register(FloatField)
 
 class ImageField(FileField):
-    height_field = models.CharField(max_length=255, blank=True)
-    width_field = models.CharField(max_length=255, blank=True)
+    height_field = models.CharField(max_length=255, blank=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.ImageField.height_field')
+    width_field = models.CharField(max_length=255, blank=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.ImageField.width_field')
     form = 'ImageFieldForm'
     field_type = 'ImageField'
 admin.site.register(ImageField)
@@ -218,7 +218,7 @@ class PositiveSmallIntegerField(Field):
 admin.site.register(PositiveSmallIntegerField)
 
 class SlugField(Field):
-    max_length = models.PositiveSmallIntegerField(default=50)
+    max_length = models.PositiveSmallIntegerField(default=50, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.CharField.max_length')
     form = 'SlugFieldForm'
     field_type = 'SlugField'
 admin.site.register(SlugField)
@@ -234,14 +234,14 @@ class TimeField(DateField):
 admin.site.register(TimeField)
 
 class URLField(Field):
-    max_length = models.PositiveSmallIntegerField(default=200)
-    verify_exists = models.BooleanField(default=True)
+    max_length = models.PositiveSmallIntegerField(default=200, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.CharField.max_length')
+    verify_exists = models.BooleanField(default=True, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.URLField.verify_exists')
     form = 'URLFieldForm'
     field_type = 'URLField'
 admin.site.register(URLField)
 
 class XMLField(Field):
-    schema_path = models.CharField(max_length=255)
+    schema_path = models.CharField(max_length=255, help_text='http://docs.djangoproject.com/en/1.2/ref/models/fields/#django.db.models.schema_path')
     form = 'XMLFieldForm'
     field_type = 'XMLField'
 admin.site.register(XMLField)

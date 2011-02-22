@@ -4,6 +4,9 @@
 {% for field in field_form %}
 <p>
     {{ field.label_tag }} {{ field }} 
+    {% if field.help_text %}
+      <span onclick="window.open('{{field.help_text}}','djangohelp','menubar=1,resizable=1,width=470,height=300');" title="help" class="help">?</span>
+    {% endif %}
     {% if field.errors %}
         <span class="errors">
         {% for error in field.errors %}

@@ -290,3 +290,15 @@ ul.errorlist {
 .project_list a:hover {
     color: #028E9F;
 }
+
+span.help{
+    padding: 1px 3px;
+    margin-left: 3px;
+    background-color: green;
+    pointer: cursor;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
