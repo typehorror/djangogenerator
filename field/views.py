@@ -32,6 +32,7 @@ FIELD_FORMS = {
     'IntegerField': IntegerFieldForm,
     'IPAddressField': IPAddressFieldForm,
     'NullBooleanField': NullBooleanFieldForm,
+    'OneToOneField': OneToOneFieldForm,
     'PositiveIntegerField': PositiveIntegerFieldForm,
     'PositiveSmallIntegerField': PositiveSmallIntegerFieldForm,
     'SlugField': SlugFieldForm,

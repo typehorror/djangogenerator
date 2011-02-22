@@ -24,6 +24,7 @@ FIELD_CHOICES = (
     ('IPAddressField', 'IPAddressField'),
     ('ManyToMany','ManyToMany'),
     ('NullBooleanField', 'NullBooleanField'),
+    ('OneToOneField','OneToOneField'),
     ('PositiveIntegerField', 'PositiveIntegerField'),
     ('PositiveSmallIntegerField', 'PositiveSmallIntegerField'),
     ('SlugField', 'SlugField'),
@@ -67,6 +68,10 @@ class CharFieldForm(FieldForm):
 class ManyToManyFieldForm(FieldForm):
     class Meta:
         model = ManyToManyField
+
+class OneToOneFieldForm(FieldForm):
+    class Meta:
+        model = OneToOneField
 
 class ForeignKeyFieldForm(FieldForm):
     class Meta:
