@@ -1,0 +1,75 @@
+BEGIN;
+-- Model: ForeignKeyField
+ALTER TABLE `field_foreignkeyfield`
+  ADD `db_index` bool;
+-- Model: DateField
+ALTER TABLE `field_datefield`
+	ADD `db_index` bool;
+-- Model: DecimalField
+ALTER TABLE `field_decimalfield`
+	ADD `db_index` bool;
+-- Model: EmailField
+ALTER TABLE `field_emailfield`
+	ADD `db_index` bool;
+-- Model: FileField
+ALTER TABLE `field_filefield`
+	ADD `db_index` bool;
+-- Model: FilePathField
+ALTER TABLE `field_filepathfield`
+	ADD `db_index` bool;
+-- Model: FloatField
+ALTER TABLE `field_floatfield`
+	ADD `db_index` bool;
+-- Model: ImageField
+ALTER TABLE `field_imagefield`
+	ADD `db_index` bool;
+-- Model: IntegerField
+ALTER TABLE `field_integerfield`
+	ADD `db_index` bool;
+-- Model: IPAddressField
+ALTER TABLE `field_ipaddressfield`
+	ADD `db_index` bool;
+-- Model: NullBooleanField
+ALTER TABLE `field_nullbooleanfield`
+	ADD `db_index` bool;
+-- Model: PositiveIntegerField
+ALTER TABLE `field_positiveintegerfield`
+	ADD `db_index` bool;
+-- Model: PositiveSmallIntegerField
+ALTER TABLE `field_positivesmallintegerfield`
+	ADD `db_index` bool;
+-- Model: SlugField
+ALTER TABLE `field_slugfield`
+	ADD `db_index` bool;
+-- Model: SmallIntegerField
+ALTER TABLE `field_smallintegerfield`
+	ADD `db_index` bool;
+-- Model: URLField
+ALTER TABLE `field_urlfield`
+	ADD `db_index` bool;
+-- Model: XMLField
+ALTER TABLE `field_xmlfield`
+	ADD `db_index` bool;
+-- Model: ManyToManyField
+ALTER TABLE `field_manytomanyfield`
+  ADD `db_index` bool;
+-- Model: CharField
+ALTER TABLE `field_charfield`
+  ADD `db_index` bool;
+-- Model: TextField
+ALTER TABLE `field_textfield`
+  ADD `db_index` bool;
+-- Model: AutoField
+ALTER TABLE `field_autofield`
+  ADD `db_index` bool;
+-- Model: BigIntegerField
+ALTER TABLE `field_bigintegerfield`
+  ADD `db_index` bool;
+-- Model: BooleanField
+ALTER TABLE `field_booleanfield`
+  ADD `db_index` bool;
+-- Model: CommaSeparatedIntegerField
+ALTER TABLE `field_commaseparatedintegerfield`
+  ADD `db_index` bool;
+
+COMMIT;
