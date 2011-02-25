@@ -22,7 +22,7 @@ FIELD_CHOICES = (
     ('ImageField', 'ImageField'),
     ('IntegerField', 'IntegerField'),
     ('IPAddressField', 'IPAddressField'),
-    ('ManyToMany','ManyToMany'),
+    ('ManyToManyField','ManyToManyField'),
     ('NullBooleanField', 'NullBooleanField'),
     ('OneToOneField','OneToOneField'),
     ('PositiveIntegerField', 'PositiveIntegerField'),
