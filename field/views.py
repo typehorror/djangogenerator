@@ -90,6 +90,7 @@ def new_model_field_form(request, field_type, model_id):
         if form.is_valid():
             new_field = form.save()
             model_field = model.model_fields.create(object=new_field)
+            prefix = "%s_%d" % (field_type,model_field.id)
             form = FIELD_FORMS[field_type](model, instance=new_field, prefix=prefix)
             context = { 'field_form':form, 
                         'model_field': model_field}
