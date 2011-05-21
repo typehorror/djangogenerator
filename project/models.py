@@ -12,8 +12,16 @@ class Project(models.Model):
 
     profile = models.ForeignKey('model.Model', unique=True, blank=True, null=True)
 
+    public = models.BooleanField(blank=True, default=False)
+
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_public_absolute_url(self):
+        if self.public:
+          return ('project.views.public_project_view', [self.pk])
+        return ''
 
     @models.permalink
     def get_absolute_url(self):

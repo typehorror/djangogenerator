@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="navigation clear">
+    {% if projects.has_next %}
+        <div><a href="?{{url_parameters}}&page={{ projects.next_page_number }}" >&laquo; Older Entries </a></div>												
+    {% endif %}
+    {% if projects.has_previous %}
+        <div><a href="?{{url_parameters}}&page={{ projects.previous_page_number }}" >Newer Entries &raquo;</a></div>
+    {% endif %}
+    </div>
+
+    <h1>Public projects</h1>
+    <ul class="project_list">
+    {% for project in projects.object_list %}
+        <li>
+            <a href="{{ project.get_public_absolute_url }}">
+                <strong>{{ project.name }} </strong>
+                by {{ project.owner }} - 
+                updated {{ project.modification_date|timesince }} ago - 
+                {{ project.applications.count }} applications (click to view)
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+
+    </div>
+{% endblock content %}
+
+

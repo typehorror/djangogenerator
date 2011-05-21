@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load application_tags %}
+
+{% block content %}
+    {% if project.applications %}
+    <div id="generate">
+        <a href="{% url public_project_generate project.id %}">Generate and Download Project</a>
+    </div>
+    {% endif %}
+    <h1>{{ project.name }}</h1>
+    <p>
+	{{ project.description }}
+    </p>
+    <div class="applications" id="project_{{ project.id }}_applications">
+    <ul id="project_{{ project.id }}_applications_list">
+	{% for application in project.applications.all %}
+		<li>/{{ application }}/
+			<ul>
+			{% for model in application.models.all %}
+				<li>{{ model }}
+					<ul>
+					{% for field in model.model_fields.all %}
+						<li>{{ field }}
+						</li>
+					{% endfor %}
+					</ul>
+				</li>
+			{% endfor %}
+			</ul>
+		</li>
+	{% endfor %}
+    </ul>
+    </div>
+
+{% endblock content %}
+

@@ -337,3 +337,17 @@ span.help{
 #expand_all{
     display: none;
 }
+
+#footer{
+  border-radius: 5px;
+  background: #555;
+  margin: 30px 5px 0;
+  color: #eee;
+  padding: 10px;
+  font-family: arial;
+  font-size: 1.2em;
+}
+#footer a{
+  font-weight: bold;
+  color: white;
+}

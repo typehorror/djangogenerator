@@ -16,6 +16,29 @@ from application.forms import NewApplicationForm
 
 from field.models import ModelField
 
+def public_project_view(request, project_id):
+    """
+    - return project corresponding to project_id
+    - raise 404 if project is not found or is not public
+    """
+    if request.user.is_superuser:
+        project = get_object_or_404(Project, pk=project_id)
+    else:
+        project = get_object_or_404(Project, public=True, pk=project_id)
+    
+    context = {'project': project}
+    return render_response(request, 'project/public_project_view.html', context)
+
+def public_project_list(request):
+    """
+    return public projects list
+    The result list is paginated
+    """
+    context = {}
+    projects = Project.objects.filter(public=True).order_by("-creation_date")
+    context['projects'] = paginate(projects, request)
+    return render_response(request, 'project/public_project_list.html', context) 
+
 @login_required
 def project_view(request, project_id):
     """
@@ -69,7 +92,6 @@ def project_list(request):
     context['new_project_form'] = form
     return render_response(request, 'project/project_list.html', context) 
 
-
 def generate(template, output, context={}):
     """
     render a template to a file using context dict
@@ -84,11 +106,22 @@ def generate(template, output, context={}):
 
 @login_required
 def project_generate(request, project_id):
+    return _project_generate(request=request, project_id=project_id, owner=request.user)
+
+def public_project_generate(request, project_id):
+    return _project_generate(request=request, project_id=project_id)
+
+def _project_generate(request, project_id, owner=None):
     """
     Generate the whole project in a temp folder,
     compress it and move the compressed file to media folder.
     """
-    project = get_object_or_404(Project, owner=request.user, pk=project_id)
+    project_kwargs = {'pk':project_id}
+    if owner:
+        project_kwargs['owner'] = owner
+    else:
+         project_kwargs['public'] = True
+    project = get_object_or_404(Project, **project_kwargs)
     context = {'project': project}
     
     # make the output folder
@@ -104,7 +137,6 @@ def project_generate(request, project_id):
 
     # generate the settings(_local) files and save them
     generate('settings.py', os.path.join(output_folder, 'settings.py'), context)
-    # generate('settings_local.py', os.path.join(output_folder, 'settings_local.py'), context)
 
     # generate the manage.py file
     generate('manage.py', os.path.join(output_folder, 'manage.py'), context)

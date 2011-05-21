@@ -22,6 +22,7 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ('name',
                   'description',
+                  'public',
                   'profile',)
 
     def clean_name(self):

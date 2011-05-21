@@ -2,11 +2,11 @@
 
 {% block content %}
     <div class="navigation clear">
-    {% if articles.has_next %}
-        <div><a href="?{{url_parameters}}&page={{ articles.next_page_number }}" >&laquo; Older Entries </a></div>												
+    {% if projects.has_next %}
+        <div><a href="?{{url_parameters}}&page={{ projects.next_page_number }}" >&laquo; Older Entries </a></div>												
     {% endif %}
-    {% if articles.has_previous %}
-        <div><a href="?{{url_parameters}}&page={{ articles.previous_page_number }}" >Newer Entries &raquo;</a></div>
+    {% if projects.has_previous %}
+        <div><a href="?{{url_parameters}}&page={{ projects.previous_page_number }}" >Newer Entries &raquo;</a></div>
     {% endif %}
     </div>
 
