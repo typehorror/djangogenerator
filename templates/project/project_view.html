@@ -12,6 +12,8 @@
     	{% new_application_form project %}
 	</form>
     </div>
+    <div id="collapse_all">- Collapse All</div>
+    <div id="expand_all">+ Expand All</div>
     <div id="project_{{ project.id }}" class="project_form">
     <form action="" method="post">
         <p>
@@ -37,6 +39,20 @@
         $("#new_application_{{ project.id }}_loading").css({display:'inline-block'});
         $(this).ajaxSubmit({target: '#new_application_{{ project.id }}_form'});
         return false;
+    });
+    $("#expand_all").click(function(){
+        $(".field .field_type, .field .field_form").show();
+        $(".field .field_toggle").html('-');
+        $(".field .python_field").hide();
+        $("#expand_all").hide();
+        $("#collapse_all").show();
+    });
+    $("#collapse_all").click(function(){
+        $(".field .field_type, .field .field_form").hide();
+        $(".field .field_toggle").html('+');
+        $(".field .python_field").show();
+        $("#expand_all").show();
+        $("#collapse_all").hide();
     });
     // ]]>
 </script>

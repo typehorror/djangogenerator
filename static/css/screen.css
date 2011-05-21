@@ -44,6 +44,10 @@ li{
     list-style-type: none;
 }
 
+#content{
+  position: relative;
+}
+
 .new_form{
     background-color: #F8FFF0;
     -moz-border-radius: 10px;
@@ -83,8 +87,8 @@ li{
 
 .new_application{
     position: absolute;
-    right: 15px;
-    margin-top: 40px;
+    right: 5px;
+    top: 130px;
 }
 
 .model_forms li div.model_form{
@@ -98,13 +102,38 @@ li{
 }
 
 .field{
+    position: relative;
     border: 1px solid lightgray;
     background-color: #eee;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    margin: 10px;
     margin: 5px;
     padding: 5px;
+}
+
+.python_field{
+  display:none;
+}
+
+
+.field_toggle{
+  color: #555;
+  padding: 0px 5px 2px;
+  position: absolute;
+  left: -27px;
+  top: 2px;
+  cursor: pointer;
+  border: 1px dashed #333;
+  font-weight: bold;
+}
+
+.field_type{
+    position:absolute;
+    color: #999;
+    font-size: 2em;
+    right:0px;
+    margin-top:30px;
+    right: 50px;
 }
 
 .newfield{
@@ -188,15 +217,6 @@ form span.loading{
     height: 16px;
     margin: 0 10px 0 3px;
     display: none;
-}
-
-.field_type{
-    position:absolute;
-    color: #999;
-    font-size: 2em;
-    right:0px;
-    margin-top:30px;
-    right: 50px;
 }
 
 #generate:hover{
@@ -301,4 +321,19 @@ span.help{
     border-radius: 5px;
     color: white;
     font-weight: bold;
+}
+
+#expand_all,
+#collapse_all{
+    position: absolute;
+    border: 1px solid gray;
+    padding: 3px 5px;
+    background-color: #eeeeee;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    top: 190px;
+    right: 10px;
+}
+#expand_all{
+    display: none;
 }

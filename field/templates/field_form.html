@@ -1,6 +1,8 @@
 <div class="field" id="field_{{ model_field.id }}">
+<div class="field_toggle" id="collapse_field_{{ model_field.id }}">-</div>
+<div id="python_field_{{ model_field.id }}" class="python_field"> {{ model_field }} </div>
 <div class="field_type" >{{ model_field.object.field_type }}</div>
-<form id="field_form_{{ model_field.id }}" action="{% url model_field_form model_field.object.field_type model_field.id %}" method="post">
+<form class="field_form" id="field_form_{{ model_field.id }}" action="{% url model_field_form model_field.object.field_type model_field.id %}" method="post">
 {% for field in field_form %}
 <p>
     {{ field.label_tag }} {{ field }} 
@@ -43,6 +45,15 @@
                 });
             }
         });
+
+    $("#collapse_field_{{ model_field.id }}").click(function(){
+        $("#field_form_{{ model_field.id }}").slideToggle();
+        $("#field_{{ model_field.id }} .field_type").toggle();
+        $("#python_field_{{ model_field.id }}").toggle();
+        var sign = $("#collapse_field_{{ model_field.id }}").html() 
+        $("#collapse_field_{{ model_field.id }}").html(sign === '+' ? '-' : '+');
+        return false;
+    });
 
     $("#field_form_{{ model_field.id }}").submit(function(){
         $("#field_{{ model_field.id }}_loading").css({display:"inline-block"});

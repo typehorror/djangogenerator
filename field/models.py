@@ -23,7 +23,7 @@ class ModelField(models.Model):
         try:
             return self.object.__unicode__()
         except:
-            return u'Warning ModelField %d is not has no object link to it' % self.pk
+            return u'Warning ModelField %d has no object linked to it' % self.pk
 admin.site.register(ModelField)
 
 def delete_linked_field(sender, instance, **kwargs):
