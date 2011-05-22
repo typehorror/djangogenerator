@@ -4,6 +4,7 @@ import os
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -28,6 +29,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('django.views.generic.simple',
     (r'^$', 'redirect_to', {'url': '/project/list/'}),
+    url(r'^screenshot/$', 'direct_to_template', {'template': 'screenshot.html'}, name='screenshot'),
 )
 
 if settings.DEBUG:
