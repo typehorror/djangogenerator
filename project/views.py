@@ -1,4 +1,6 @@
 import os
+import random
+import hashlib
 from tempfile import mktemp
 
 from django.http import HttpResponseRedirect, HttpResponse
@@ -122,7 +124,9 @@ def _project_generate(request, project_id, owner=None):
     else:
          project_kwargs['public'] = True
     project = get_object_or_404(Project, **project_kwargs)
-    context = {'project': project}
+    secret_key = hashlib.sha224('%f' % random.random()).hexdigest()
+    context = {'project': project,
+               'secret_key': secret_key}
     
     # make the output folder
     output_folder = mktemp()
