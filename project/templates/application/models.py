@@ -12,7 +12,12 @@ class {{ model.name }}(models.Model):
     {% for model_field in model.model_fields.all %}
     {{ model_field.object|safe }}{% endfor %}
     {% if project.profile == model %}user = models.OneToOneField(User){% endif %}
-{% if  model.has_read_only_view or model.has_form_view %}
+{% if model.verbose_name or model.verbose_name_plural %}
+    class Meta:
+{% if model.verbose_name %}      verbose_name = '{{ model.verbose_name }}'{% endif %}
+{% if model.verbose_name_plural %}      verbose_name_plural = '{{ model.verbose_name_plural }}'{% endif %}
+{% endif %}
+{% if model.has_read_only_view or model.has_form_view %}
     @models.permalink
     def get_absolute_url(self):
         {% if  model.has_read_only_view %}return ('{{ model.application.name }}.views.view_{{ model.name.lower }}', [str(self.id)]){% else %}return ('{{ model.application.name}}.views.form_{{ model.name.lower }}', [str(self.id)]){% endif %}
